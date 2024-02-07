@@ -1,15 +1,14 @@
 // src/components/Navbar.tsx
 
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material'; // Assuming you are using Material-UI
+import { AppBar, Toolbar, Typography, Button } from '@mui/material'; 
+import logo from '../shared/logo.png';
 
 const Navbar: React.FC = () => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    My Portfolio
-                </Typography>
+                <img src={logo} alt="logo" style={{ height: '50px', marginRight: '10px' }} /> 
                 <Button color="inherit">Home</Button>
                 <Button color="inherit">About</Button>
                 <Button color="inherit">Portfolio</Button>
