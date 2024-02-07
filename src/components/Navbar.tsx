@@ -7,7 +7,7 @@ import './Navbar.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // Define a custom theme with the desired AppBar color
-const theme = createTheme({
+export const theme = createTheme({
     palette: {
         primary: {
             main: '#fff2cc', 
