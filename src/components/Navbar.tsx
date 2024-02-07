@@ -1,5 +1,7 @@
+// src/components/Navbar.tsx
+
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button } from '@mui/material'; // Assuming you are using Material-UI
 
 const Navbar: React.FC = () => {
     return (

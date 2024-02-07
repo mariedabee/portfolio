@@ -1,5 +1,7 @@
+// src/App.tsx
+
+import React from "react";
 import logo from "./logo.png";
-import "./App.css";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -10,7 +12,7 @@ function App() {
         <img src={logo} alt="logo" />
       </header>
       <div>
-        <p>hello, i am mariam</p>
+        <p>Hello, I am Mariam</p>
       </div>
     </div>
   );
