@@ -6,7 +6,7 @@ import { makeStyles } from '@mui/styles';
 // Define custom font for vintage look
 const vintageFont = "'Old Standard TT', serif";
 
-const useStyles = makeStyles((theme : any) => ({
+export const useStyles = makeStyles((theme : any) => ({
   card: {
     transition: 'transform 0.3s ease',
     '&:hover': {
@@ -14,12 +14,11 @@ const useStyles = makeStyles((theme : any) => ({
     },
     marginBottom: theme.spacing(2),
     fontFamily: vintageFont, // Apply vintage font to card content
-    background: '#F5F5F5', // Adjust background color
   },
   // Adjust typography styles for vintage font
   vintageText: {
     fontFamily: vintageFont,
-    color: '#5D5D5D', // Adjust text color
+    color: '#ADBC9F', 
   },
 }));
 
@@ -27,7 +26,7 @@ const HomePage: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="sm" style={{ padding: '20px', borderRadius: '10px' }}>
+    <Container style={{ backgroundColor:'#436850', padding: '50px', borderRadius: '10px', width:'100%' }}>
       <Card className={classes.card}>
         <CardContent>
           <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
@@ -45,6 +44,17 @@ const HomePage: React.FC = () => {
           <Button variant="contained" color="primary" size="large" fullWidth component={Link} to="/about">
             Learn More
           </Button>
+        </CardContent>
+      </Card>
+
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
+            i dont know yet
+          </Typography>
+          <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
+            Hi there! I'm a Syrian girl with a passion for exploration and learning. Having lived in various countries, including Egypt, Turkey, KSA, and currently Germany, I've been shaped by diverse experiences.
+          </Typography>
         </CardContent>
       </Card>
     </Container>

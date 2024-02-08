@@ -4,22 +4,25 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#3FA796", // Green color for primary
+      main: "#ADBC9F", 
     },
     secondary: {
-      main: "#FEC260", // Pink color for secondary
+      main: "#0a5664", 
     },
     background: {
-      default: "#0d0d0d", // Darker background color
-      paper: "#1a1a1a", // Darkest background color
+      default: "#c8cccb", 
+      paper: "#12372A", 
     },
     text: {
-      primary: "#ffffff", // White text color
-      secondary: "#a0a0a0", // Light grey text color
+      primary: "#ADBC9F", 
+      secondary: "#a0a0a0", 
     },
   },
   typography: {
     fontFamily: ["Roboto", '"Helvetica Neue"', "Arial", "sans-serif"].join(","),
+    body1: {
+      margin: '15px', // Add margin for body1 variant
+    },
   },
   spacing: 8, // Default spacing between components
   shadows: ["none"], // Disable shadows for a flatter look

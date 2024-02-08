@@ -9,7 +9,7 @@ const vintageFont = "'Old Standard TT', serif";
 
 const Navbar: React.FC = () => {
     return (
-        <AppBar position="static" style={{ background: '#5D5D5D', fontFamily: vintageFont }}>
+        <AppBar position="static" style={{ background: '#12372A', fontFamily: vintageFont }}>
             <Toolbar>
                 <img src={logo} alt="logo" className="logo" /> 
                 <Button color="inherit" component={Link} to="/" style={{ fontFamily: vintageFont }}>Home</Button>                

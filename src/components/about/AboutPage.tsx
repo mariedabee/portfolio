@@ -1,42 +1,57 @@
 import React from 'react';
-import { Container, Typography } from '@mui/material';
+import { Card, Container, Typography } from '@mui/material';
+import { useStyles } from '../home/HomePage';
 
 const AboutPage: React.FC = () => {
+    const classes = useStyles();
+
     return (
-        <Container maxWidth="sm" style={{ padding: '20px', borderRadius: '10px' }}>
-            <Typography variant="h4" align="center" gutterBottom>
+        <Container style={{ backgroundColor:'#436850', padding: '50px', borderRadius: '10px' , width:'100%'}}>
+
+        <Card className={classes.card}>
+            <Typography variant="h2" align="center" gutterBottom className={classes.vintageText}>
                 About Me
             </Typography>
-            <Typography variant="h5" align="left" gutterBottom>
+        </Card>
+
+        <Card className={classes.card}>
+            <Typography variant="h4" align="center" gutterBottom className={classes.vintageText} >
                 Skills & Experiences
             </Typography>
-            <Typography variant="body1" align="left" paragraph>
-                - Proficient in Java, HTML, CSS, and beginner in React.
+            <Typography variant="body1" align="left" paragraph className={classes.vintageText} >
+                Proficient in Java, HTML, CSS, and beginner in React.
             </Typography>
-            <Typography variant="body1" align="left" paragraph>
-                - Experienced in marketing and technicalities of advertisement placement.
+            <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
+                Experienced in marketing and technicalities of advertisement placement.
             </Typography>
-            <Typography variant="body1" align="left" paragraph>
-                - Previous work experience in IT at Encoway in Bremen, gaining insights into real-world development environments and sharpening programming skills.
+            <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
+            Previous work experience in IT at Encoway in Bremen, gaining insights into real-world development environments and sharpening programming skills.
             </Typography>
-            <Typography variant="h5" align="left" gutterBottom>
-                Hobbies & Interests
-            </Typography>
-            <Typography variant="body1" align="left" paragraph>
-                - Enjoys reading, writing, painting, kickboxing, and discovering new music.
-            </Typography>
-            <Typography variant="body1" align="left" paragraph>
-                - Fascinated by AI and aspiring to make meaningful contributions to humanity with software-related skills and knowledge.
-            </Typography>
-            <Typography variant="h5" align="left" gutterBottom>
-                Aspirations
-            </Typography>
-            <Typography variant="body1" align="left" paragraph>
-                - Seeking a position as a software developer in a supportive environment where I can continue to learn and grow.
-            </Typography>
-            <Typography variant="body1" align="left" paragraph>
-                - Eager to travel and explore, and to eventually use my skills to do something helpful for humanity.
-            </Typography>
+        </Card>
+
+        <Card className={classes.card}>
+        <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
+          Hobbies & Interests
+           </Typography>
+           <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
+            Enjoys reading, writing, painting, kickboxing, and discovering new music.
+           </Typography>
+           <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
+            Fascinated by AI and aspiring to make meaningful contributions to humanity with software-related skills and knowledge.
+           </Typography>
+           </Card>
+
+           <Card className={classes.card}>
+           <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
+           Aspirations
+           </Typography>
+           <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
+            Seeking a position as a software developer in a supportive environment where I can continue to learn and grow.
+           </Typography>
+           <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
+            Eager to travel and explore, and to eventually use my skills to do something helpful for humanity.
+           </Typography>
+            </Card>
         </Container>
     );
 }
