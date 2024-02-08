@@ -14,8 +14,8 @@ const Navbar: React.FC = () => {
                 <img src={logo} alt="logo" className="logo" /> 
                 <Button color="inherit" component={Link} to="/" style={{ fontFamily: vintageFont }}>Home</Button>                
                 <Button color="inherit" component={Link} to="/about" style={{ fontFamily: vintageFont }}>About</Button>
-                <Button color="inherit" style={{ fontFamily: vintageFont }}>Portfolio</Button>
-                <Button color="inherit" style={{ fontFamily: vintageFont }}>Contact</Button>
+                <Button color="inherit" component={Link} to="/portfolio" style={{ fontFamily: vintageFont }}>Portfolio</Button>
+                <Button color="inherit" component={Link} to="/contact" style={{ fontFamily: vintageFont }}>Contact</Button>
             </Toolbar>
         </AppBar>
     );
