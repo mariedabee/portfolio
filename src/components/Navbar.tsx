@@ -1,24 +1,23 @@
-// src/components/Navbar.tsx
-
 import React from 'react';
 import { AppBar, Toolbar, Button } from '@mui/material'; 
 import logo from '../shared/logo.png';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 
+// Define custom font for vintage look
+const vintageFont = "'Old Standard TT', serif";
 
 const Navbar: React.FC = () => {
     return (
-        <AppBar  position="static">
+        <AppBar position="static" style={{ background: '#5D5D5D', fontFamily: vintageFont }}>
             <Toolbar>
                 <img src={logo} alt="logo" className="logo" /> 
-                <Button color="inherit" component={Link} to="/">Home</Button>                
-                <Button color="inherit" component={Link} to="/about">About</Button>
-                <Button color="inherit">Portfolio</Button>
-                <Button color="inherit">Contact</Button>
+                <Button color="inherit" component={Link} to="/" style={{ fontFamily: vintageFont }}>Home</Button>                
+                <Button color="inherit" component={Link} to="/about" style={{ fontFamily: vintageFont }}>About</Button>
+                <Button color="inherit" style={{ fontFamily: vintageFont }}>Portfolio</Button>
+                <Button color="inherit" style={{ fontFamily: vintageFont }}>Contact</Button>
             </Toolbar>
         </AppBar>
-
     );
 }
 
