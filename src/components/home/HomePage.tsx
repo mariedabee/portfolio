@@ -1,34 +1,23 @@
 import React from 'react';
-import { Container, Typography, Button, Card, CardContent } from '@mui/material';
+import { Typography, Button, Card, CardContent, Box, CardMedia } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@mui/styles';
-
-// Define custom font for vintage look
-const vintageFont = "'Old Standard TT', serif";
-
-export const useStyles = makeStyles((theme : any) => ({
-  card: {
-    transition: 'transform 0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.05)',
-    },
-    marginBottom: theme.spacing(2),
-    fontFamily: vintageFont, // Apply vintage font to card content
-  },
-  // Adjust typography styles for vintage font
-  vintageText: {
-    fontFamily: vintageFont,
-    color: '#ADBC9F', 
-  },
-}));
+import { useStyles } from '../styles';
+import profilePicture from '../../shared/profilePicture.jpg';
+import { maxWidth } from '@mui/system';
 
 const HomePage: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Container style={{ backgroundColor:'#436850', padding: '50px', borderRadius: '10px', width:'100%' }}>
+    <Box className={classes.root}>
       <Card className={classes.card}>
         <CardContent>
+            <CardMedia
+      component="img"
+      src={profilePicture} // Pass the imported image variable
+      alt="Your Image Alt Text"
+      style={{maxWidth:'200px'}}
+    />
           <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
             Welcome to My Portfolio
           </Typography>
@@ -57,8 +46,9 @@ const HomePage: React.FC = () => {
           </Typography>
         </CardContent>
       </Card>
-    </Container>
+    </Box>
   );
 }
 
 export default HomePage;
+

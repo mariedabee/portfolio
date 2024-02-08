@@ -1,19 +1,18 @@
 import React from 'react';
-import { Card, Container, Typography } from '@mui/material';
-import { useStyles } from '../home/HomePage';
+import { Box, Card, Container, Typography } from '@mui/material';
+import { useStyles } from '../styles';
 
 const AboutPage: React.FC = () => {
     const classes = useStyles();
 
     return (
-        <Container style={{ backgroundColor:'#436850', padding: '50px', borderRadius: '10px' , width:'100%'}}>
+    <Box className={classes.root}>
 
         <Card className={classes.card}>
             <Typography variant="h2" align="center" gutterBottom className={classes.vintageText}>
                 About Me
             </Typography>
         </Card>
-
         <Card className={classes.card}>
             <Typography variant="h4" align="center" gutterBottom className={classes.vintageText} >
                 Skills & Experiences
@@ -52,7 +51,7 @@ const AboutPage: React.FC = () => {
             Eager to travel and explore, and to eventually use my skills to do something helpful for humanity.
            </Typography>
             </Card>
-        </Container>
+        </Box>
     );
 }
 
