@@ -9,57 +9,84 @@ const AboutPage: React.FC = () => {
     return (
         <Container>
             <Box className={classes.root}>
-                {/* Text content */}
-            <Card className={`${classes.card} ${classes.textCard}`}>                    <Typography variant="h2" align="center" gutterBottom className={classes.vintageText}>
-                        About Me
-                    </Typography>
+                <Card
+                    className={`${classes.card} ${classes.textCard}`}
+                    onMouseEnter={() => {
+                        document.getElementById("skillsText")?.classList.add(classes.hoverText);
+                    }}
+                    onMouseLeave={() => {
+                        document.getElementById("skillsText")?.classList.remove(classes.hoverText);
+                    }}
+                >
                     {/* Skills & Experiences */}
-                    <Typography variant="h4" align="center" gutterBottom className={classes.vintageText} >
+                    <Typography
+                        id="skillsTitle"
+                        variant="h4"
+                        align="center"
+                        gutterBottom
+                        fontFamily={`${classes.vintageText} ${classes.hoverTitle}`}
+                    >
                         Skills & Experiences
                     </Typography>
-                    <Typography variant="body1" align="left" paragraph className={classes.vintageText} >
+                    <Typography
+                        id="skillsText"
+                        variant="body1"
+                        align="left"
+                        paragraph
+                        fontFamily={classes.vintageText}
+                    >
                         Proficient in Java, HTML, CSS, and beginner in React.
-                    </Typography>
-                    <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
                         Experienced in marketing and technicalities of advertisement placement.
-                    </Typography>
-                    <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
                         Previous work experience in IT at Encoway in Bremen, gaining insights into real-world development environments and sharpening programming skills.
                     </Typography>
+                </Card>
 
-                    {/* Hobbies & Interests */}
-                    <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
+                {/*  Hobbies & Interests  */}
+                <Card className={`${classes.card} ${classes.textCard}`}  
+                      onMouseEnter={() => {
+                        document.getElementById("hobbiesText")?.classList.add(classes.hoverText);
+                      }}
+                      onMouseLeave={() => {
+                        document.getElementById("hobbiesText")?.classList.remove(classes.hoverText);
+                      }}
+                >
+                    <Typography variant="h4" align="center" gutterBottom fontFamily={`${classes.vintageText} ${classes.hoverTitle}`}>
                         Hobbies & Interests
                     </Typography>
-                    <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
+                    <Typography  id="hobbiesText" variant="body1" align="left" paragraph fontFamily={`${classes.vintageText} ${classes.hoverText}`}>
                         Enjoys reading, writing, painting, kickboxing, and discovering new music.
                     </Typography>
-                    <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
-                        Fascinated by AI and aspiring to make meaningful contributions to humanity with software-related skills and knowledge.
-                    </Typography>
+                </Card>
 
-                    {/* Aspirations */}
-                    <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
+                {/* Aspirations */}
+                <Card className={`${classes.card} ${classes.textCard}`}  
+                    onMouseEnter={() => {
+                        document.getElementById("aspirationsText")?.classList.add(classes.hoverText);
+                    }}
+                    onMouseLeave={() => {
+                        document.getElementById("aspirationsText")?.classList.remove(classes.hoverText);
+                    }}
+                >
+                    <Typography variant="h4" align="center" gutterBottom fontFamily={`${classes.vintageText} ${classes.hoverTitle}`}>
                         Aspirations
                     </Typography>
-                    <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
+                    <Typography id="aspirationsText" variant="body1" align="left" paragraph fontFamily={`${classes.vintageText} ${classes.hoverText}`}>
                         Seeking a position as a software developer in a supportive environment where I can continue to learn and grow.
-                    </Typography>
-                    <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
                         Eager to travel and explore, and to eventually use my skills to do something helpful for humanity.
                     </Typography>
                 </Card>
-
-                {/* Image */}
-            <Card className={`${classes.card} ${classes.imageCard}`}>     
-                           <CardMedia className={classes.imageCard}
+                 {/* Image */}
+                <Card className={`${classes.card} ${classes.imageCard}`}>
+                    <CardMedia
+                        className={classes.imageCard}
                         component="img"
-                        src={naturePortfolio} // Pass the imported image variable
+                        src={naturePortfolio}
                         alt="Your Image Alt Text"
-                        style={{ maxWidth: '100%', height: 'auto' }}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                 </Card>
             </Box>
+            
         </Container>
     );
 }
