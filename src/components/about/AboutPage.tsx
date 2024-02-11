@@ -1,22 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Card, CardMedia, Container, Typography } from '@mui/material';
 import { useStyles } from '../styles';
 import naturePortfolio from '../../shared/nature_portfolio.jpg';
 
 const AboutPage: React.FC = () => {
     const classes = useStyles();
+    const [hoveredElement, setHoveredElement] = useState<string | null>(null);
 
     return (
             <Box className={classes.root}>
-                <Card
-                    className={`${classes.card} ${classes.textCard}`}
-                    onMouseEnter={() => {
-                        document.getElementById("skillsText")?.classList.add(classes.hoverText);
-                    }}
-                    onMouseLeave={() => {
-                        document.getElementById("skillsText")?.classList.remove(classes.hoverText);
-                    }}
-                >
+                            <Card 
+                            className={`${classes.card} ${classes.textCard}`} 
+                            onMouseEnter={() => setHoveredElement("skillsTitle")} 
+                            onMouseLeave={() => setHoveredElement(null)}
+                            >
                     {/* Skills & Experiences */}
                     <Typography
                         id="skillsTitle"
@@ -42,12 +39,8 @@ const AboutPage: React.FC = () => {
 
                 {/*  Hobbies & Interests  */}
                 <Card className={`${classes.card} ${classes.textCard}`}  
-                      onMouseEnter={() => {
-                        document.getElementById("hobbiesText")?.classList.add(classes.hoverText);
-                      }}
-                      onMouseLeave={() => {
-                        document.getElementById("hobbiesText")?.classList.remove(classes.hoverText);
-                      }}
+                    onMouseEnter={() => setHoveredElement("hobbiesText")} 
+                    onMouseLeave={() => setHoveredElement(null)}
                 >
                     <Typography variant="h4" align="center" gutterBottom fontFamily={`${classes.vintageText} ${classes.hoverTitle}`}>
                         Hobbies & Interests
@@ -59,12 +52,8 @@ const AboutPage: React.FC = () => {
 
                 {/* Aspirations */}
                 <Card className={`${classes.card} ${classes.textCard}`}  
-                    onMouseEnter={() => {
-                        document.getElementById("aspirationsText")?.classList.add(classes.hoverText);
-                    }}
-                    onMouseLeave={() => {
-                        document.getElementById("aspirationsText")?.classList.remove(classes.hoverText);
-                    }}
+                    onMouseEnter={() => setHoveredElement("aspirationsText")} 
+                    onMouseLeave={() => setHoveredElement(null)}
                 >
                     <Typography variant="h4" align="center" gutterBottom fontFamily={`${classes.vintageText} ${classes.hoverTitle}`}>
                         Aspirations
@@ -90,3 +79,5 @@ const AboutPage: React.FC = () => {
 }
 
 export default AboutPage;
+
+//TODO: text appear / disappear state not working 
