@@ -37,36 +37,59 @@ const ContactPage: React.FC = () => {
     setMessageError(false); // Reset error state on change
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // Validation logic
-    if (!firstName.trim()) {
-      setFirstNameError(true);
-      return;
-    }
-    if (!lastName.trim()) {
-      setLastNameError(true);
-      return;
-    }
-    if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email)) {
-      setEmailError(true);
-      return;
-    }
-    if (!message.trim()) {
-      setMessageError(true);
-      return;
-    }
+const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  // Validation logic
+  if (!firstName.trim()) {
+    setFirstNameError(true);
+    return;
+  }
+  if (!lastName.trim()) {
+    setLastNameError(true);
+    return;
+  }
+  if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email)) {
+    setEmailError(true);
+    return;
+  }
+  if (!message.trim()) {
+    setMessageError(true);
+    return;
+  }
 
-    // Submit logic
-    // For demo purposes, setting submission success to true
-    setSubmissionSuccess(true);
+  try {
+    // Send form data to backend
+    const response = await fetch('http://localhost:3001/submit-form', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        message,
+      }),
+    });
 
-    // Clear form fields after successful submission
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setMessage('');
-  };
+    if (response.ok) {
+      // Submission successful
+      setSubmissionSuccess(true);
+      // Clear form fields after successful submission
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setMessage('');
+    } else {
+      // Handle server error
+      console.error('Server error:', response.statusText);
+    }
+  } catch (error) {
+    // Handle network error
+    console.error('Network error:', error);
+  }
+};
+
 
   const handleSnackbarClose = () => {
     setSubmissionSuccess(false);
