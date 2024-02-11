@@ -1,0 +1,20 @@
+/* HomePage.css */
+.cardWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+.profileImage {
+    border-radius: 20%;
+    margin-right: 40px;
+    max-width: 400px;
+}
+
+.textWrapper {
+    flex: 1;
+}
+
+.learnMoreButton {
+    margin-top: 20px;
+}

@@ -1,24 +1,29 @@
+// HomePage.tsx
 import React from 'react';
 import { Typography, Button, Card, CardContent, Box, CardMedia } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useStyles } from '../styles';
 import profilePicture from '../../shared/profilePicture.jpg';
+import './HomePage.css'; // Import the CSS file
 
 const HomePage: React.FC = () => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
-      <Card className={classes.card}>
-        <CardContent>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0px' }}>
+        <div>
             <CardMedia
               component="img"
               src={profilePicture}
               alt="Your Image Alt Text"
-              style={{ width: '200px', borderRadius: '50%', marginRight: '20px' }}
+              className="profileImage"
             />
-            <div>
+        </div>
+      <Card className={classes.card}>
+        <CardContent>
+          <div className="cardWrapper"> 
+        
+            <div className="textWrapper"> 
               <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
                 Welcome to My Portfolio
               </Typography>
@@ -33,7 +38,15 @@ const HomePage: React.FC = () => {
                   I'm a kind-hearted individual who thrives on organization and structure. Animals and nature hold a special place in my heart, and I find solace in the harmony of the natural world.
                 </Typography>
               </div>
-              <Button variant="contained" color="primary" size="large" fullWidth component={Link} to="/about">
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                fullWidth
+                component={Link}
+                to="/about"
+                className="learnMoreButton" 
+              >
                 Learn More
               </Button>
             </div>

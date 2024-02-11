@@ -11,11 +11,8 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <Router>
-        {/* Render the Navbar component */}
         <Navbar />
-        {/* Define your routes */}
         <Routes>
-          {/* Route for the home page */}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
