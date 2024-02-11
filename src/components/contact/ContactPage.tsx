@@ -1,11 +1,76 @@
-import React from 'react';
-import { Typography, Card, CardContent, Button, Box, TextField } from '@mui/material';
+import React, { useState } from 'react';
+import { Typography, Card, CardContent, Button, Box, TextField, Snackbar, Backdrop } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useStyles } from '../styles';
 import './ContactPage.css'; 
 
 const ContactPage: React.FC = () => {
   const classes = useStyles();
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [lastNameError, setLastNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [messageError, setMessageError] = useState(false);
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
+
+  const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFirstName(event.target.value);
+    setFirstNameError(false); // Reset error state on change
+  };
+
+  const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLastName(event.target.value);
+    setLastNameError(false); 
+  };
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+    setEmailError(false); 
+  };
+
+  const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(event.target.value);
+    setMessageError(false); // Reset error state on change
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Validation logic
+    if (!firstName.trim()) {
+      setFirstNameError(true);
+      return;
+    }
+    if (!lastName.trim()) {
+      setLastNameError(true);
+      return;
+    }
+    if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email)) {
+      setEmailError(true);
+      return;
+    }
+    if (!message.trim()) {
+      setMessageError(true);
+      return;
+    }
+
+    // Submit logic
+    // For demo purposes, setting submission success to true
+    setSubmissionSuccess(true);
+
+    // Clear form fields after successful submission
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setMessage('');
+  };
+
+  const handleSnackbarClose = () => {
+    setSubmissionSuccess(false);
+  };
 
   return (
     <Box className={classes.root}>
@@ -15,24 +80,28 @@ const ContactPage: React.FC = () => {
             <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
               Contact Me
             </Typography>
-            <form className="contact-form">
+            <form className="contact-form" onSubmit={handleSubmit}>
               <TextField
                 label="First Name"
                 variant="outlined"
                 name="firstName"
                 required
-                inputProps={{ pattern: "[A-Za-z]+" }}
-                title="Only letters are allowed"
                 fullWidth
+                value={firstName}
+                onChange={handleFirstNameChange}
+                error={firstNameError}
+                helperText={firstNameError && "First Name is required"}
               />
               <TextField
                 label="Last Name"
                 variant="outlined"
                 name="lastName"
                 required
-                inputProps={{ pattern: "[A-Za-z]+" }}
-                title="Only letters are allowed"
                 fullWidth
+                value={lastName}
+                onChange={handleLastNameChange}
+                error={lastNameError}
+                helperText={lastNameError && "Last Name is required"}
               />
               <TextField
                 label="Email"
@@ -41,6 +110,10 @@ const ContactPage: React.FC = () => {
                 type="email"
                 required
                 fullWidth
+                value={email}
+                onChange={handleEmailChange}
+                error={emailError}
+                helperText={emailError && "Invalid email format"}
               />
               <TextField
                 label="Message"
@@ -50,8 +123,12 @@ const ContactPage: React.FC = () => {
                 rows={10}
                 required
                 fullWidth
+                value={message}
+                onChange={handleMessageChange}
+                error={messageError}
+                helperText={messageError && "Message is required"}
               />
-              <Button variant="contained" color="primary" size="large" fullWidth component={Link} to="/">
+              <Button variant="contained" color="primary" size="large" fullWidth type="submit">
                 Submit
               </Button>
             </form>
@@ -59,6 +136,23 @@ const ContactPage: React.FC = () => {
         </Card>
         <div className="background-image"></div>
       </div>
+
+      <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, color: 'rgba(0, 0, 0, 0.5)' }} open={submissionSuccess}>
+        <Snackbar
+        open={submissionSuccess}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message="Form submitted successfully"
+        action={
+            <Button color="inherit" size="small" onClick={handleSnackbarClose}>
+            Close
+            </Button>
+        }
+        sx={{ height: "100%" }}
+        anchorOrigin={{   vertical: "top", horizontal: "center"}}
+        />
+
+      </Backdrop>
     </Box>
   );
 }
