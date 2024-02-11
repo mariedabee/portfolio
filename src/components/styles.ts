@@ -43,6 +43,7 @@ export const useStyles = makeStyles((theme: any) => ({
     marginRight: theme.spacing(2), // Adjust margin to create space between cards
     flexBasis: "50%", // Set the width of the text card
   },
+
   imageCard: {
     flexBasis: "20%", // Set the width of the image card
   },

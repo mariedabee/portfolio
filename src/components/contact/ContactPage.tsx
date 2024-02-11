@@ -1,35 +1,64 @@
 import React from 'react';
-import { Typography, Card, CardContent, Button, Box } from '@mui/material';
+import { Typography, Card, CardContent, Button, Box, TextField } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useStyles } from '../styles';
+import './ContactPage.css'; 
 
 const ContactPage: React.FC = () => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
-            Contact Me
-          </Typography>
-          <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
-            If you'd like to get in touch, feel free to reach out to me using one of the following methods:
-          </Typography>
-          <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
-            Email: example@example.com
-          </Typography>
-          <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
-            Phone: +1234567890
-          </Typography>
-          <Typography variant="body1" align="left" paragraph className={classes.vintageText}>
-            Address: 123 Street, City, Country
-          </Typography>
-          <Button variant="contained" color="primary" size="large" fullWidth component={Link} to="/">
-            Back to Home
-          </Button>
-        </CardContent>
-      </Card>
+      <div className="contact-container">
+        <Card style={{width:"60%"}}>
+          <CardContent>
+            <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
+              Contact Me
+            </Typography>
+            <form className="contact-form">
+              <TextField
+                label="First Name"
+                variant="outlined"
+                name="firstName"
+                required
+                inputProps={{ pattern: "[A-Za-z]+" }}
+                title="Only letters are allowed"
+                fullWidth
+              />
+              <TextField
+                label="Last Name"
+                variant="outlined"
+                name="lastName"
+                required
+                inputProps={{ pattern: "[A-Za-z]+" }}
+                title="Only letters are allowed"
+                fullWidth
+              />
+              <TextField
+                label="Email"
+                variant="outlined"
+                name="email"
+                type="email"
+                required
+                fullWidth
+              />
+              <TextField
+                label="Message"
+                variant="outlined"
+                name="message"
+                multiline
+                rows={4}
+                required
+                fullWidth
+              />
+              <Button variant="contained" color="primary" size="large" fullWidth component={Link} to="/">
+                Submit
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+        <div className="background-image"></div>
+      </div>
     </Box>
   );
 }
