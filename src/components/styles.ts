@@ -18,7 +18,6 @@ export const useStyles = makeStyles((theme: any) => ({
   card: {
     width: "80%",
     maxWidth: "600px",
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
     padding: theme.spacing(4),
     fontFamily: vintageFont,
     transform: "scale(0.95)",
