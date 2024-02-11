@@ -7,7 +7,6 @@ const AboutPage: React.FC = () => {
     const classes = useStyles();
 
     return (
-        <Container>
             <Box className={classes.root}>
                 <Card
                     className={`${classes.card} ${classes.textCard}`}
@@ -87,7 +86,6 @@ const AboutPage: React.FC = () => {
                 </Card>
             </Box>
             
-        </Container>
     );
 }
 

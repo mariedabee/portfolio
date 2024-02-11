@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import backgroundImage from "../shared/yellow-green.jpg";
+import backgroundImage from "../shared/greenish.jpg";
 
 // Define custom font for vintage look
 const vintageFont = "'Old Standard TT', serif ";
@@ -10,6 +10,10 @@ export const useStyles = makeStyles((theme: any) => ({
     justifyContent: "space-between",
     alignItems: "stretch",
     flexWrap: "wrap", // Allow wrapping for smaller screens
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover", // Ensure the background image covers the entire container
+    backgroundPosition: "center", // Center the background image
+    minHeight: "100vh", // Set minimum height to 100% of viewport height
   },
   card: {
     transition: "transform 0.3s ease",
