@@ -47,7 +47,7 @@ const ContactPage: React.FC = () => {
                 variant="outlined"
                 name="message"
                 multiline
-                rows={4}
+                rows={10}
                 required
                 fullWidth
               />

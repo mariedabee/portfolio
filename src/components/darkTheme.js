@@ -19,13 +19,11 @@ const darkTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Roboto", '"Helvetica Neue"', "Arial", "sans-serif"].join(","),
+    fontFamily: ["'Old Standard TT', serif "].join(","),
     body1: {
-      margin: "15px", // Add margin for body1 variant
+      margin: "5px", // Add margin for body1 variant
     },
   },
-  spacing: 8, // Default spacing between components
-  shadows: ["none"], // Disable shadows for a flatter look
 });
 
 export default darkTheme;

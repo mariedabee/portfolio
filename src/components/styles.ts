@@ -7,25 +7,29 @@ const vintageFont = "'Old Standard TT', serif ";
 export const useStyles = makeStyles((theme: any) => ({
   root: {
     display: "flex",
-    justifyContent: "space-between",
-    alignItems: "stretch",
-    flexWrap: "wrap", // Allow wrapping for smaller screens
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "100vh",
+    padding: theme.spacing(2),
     backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: "cover", // Ensure the background image covers the entire container
-    backgroundPosition: "center", // Center the background image
-    minHeight: "100vh", // Set minimum height to 100% of viewport height
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
   card: {
-    transition: "transform 0.3s ease",
-    marginBottom: theme.spacing(2),
-    fontFamily: vintageFont,
+    width: "80%",
+    maxWidth: "600px",
     backgroundColor: "rgba(255, 255, 255, 0.5)",
-    flex: 1, // Make cards grow to fill available space
-    flexBasis: "100%",
-    transform: "scale(0.95)", // Set initial scale to 95%
+    padding: theme.spacing(4),
+    fontFamily: vintageFont,
+    transform: "scale(0.95)",
+    transition: "transform 0.3s ease",
     "&:hover": {
-      transform: "scale(0.98)", // Adjust scale to make the card return to normal size on hover
+      transform: "scale(1)",
     },
+  },
+
+  textWrapper: {
+    flex: 1, // Allow text to grow to fill available space
   },
   hoverText: {
     opacity: 0,
