@@ -67,8 +67,7 @@ export const useStyles = makeStyles((theme: any) => ({
     marginRight: theme.spacing(1),
   },
   footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(0.5),
+    padding: theme.spacing(0.1),
     marginTop: "auto",
   },
   iconButtonGithub: {
