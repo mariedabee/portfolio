@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import HomePage from "./components/home/HomePage";
 import AboutPage from "./components/about/AboutPage";
 import ContactPage from "./components/contact/ContactPage";
@@ -17,6 +18,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
+        <Footer />
       </Router>
     </ThemeProvider>
   );

@@ -181,3 +181,5 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 }
 
 export default ContactPage;
+
+//TODO: check if email is valid 
