@@ -9,11 +9,11 @@ const ContactPage: React.FC = () => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [senderEmail, setsenderEmail] = useState('');
   const [message, setMessage] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastNameError, setLastNameError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
+  const [senderEmailError, setsenderEmailError] = useState(false);
   const [messageError, setMessageError] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
@@ -28,8 +28,8 @@ const ContactPage: React.FC = () => {
   };
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-    setEmailError(false); 
+    setsenderEmail(event.target.value);
+    setsenderEmailError(false); 
   };
 
   const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,8 +48,8 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLastNameError(true);
     return;
   }
-  if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email)) {
-    setEmailError(true);
+  if (!senderEmail.trim() || !/^\S+@\S+\.\S+$/.test(senderEmail)) {
+    setsenderEmailError(true);
     return;
   }
   if (!message.trim()) {
@@ -67,7 +67,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       body: JSON.stringify({
         firstName,
         lastName,
-        email,
+        senderEmail,
         message,
       }),
     });
@@ -78,7 +78,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       // Clear form fields after successful submission
       setFirstName('');
       setLastName('');
-      setEmail('');
+      setsenderEmail('');
       setMessage('');
     } else {
       // Handle server error
@@ -133,10 +133,10 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
                 type="email"
                 required
                 fullWidth
-                value={email}
+                value={senderEmail}
                 onChange={handleEmailChange}
-                error={emailError}
-                helperText={emailError && "Invalid email format"}
+                error={senderEmailError}
+                helperText={senderEmailError && "Invalid email format"}
               />
               <TextField
                 label="Message"

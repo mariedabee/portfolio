@@ -1,61 +1,39 @@
 const express = require("express");
-const cors = require("cors"); // Import the cors middleware
-const bodyParser = require("body-parser"); // Import the body-parser middleware
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 const app = express();
 
-app.use(cors()); // Enable CORS for all routes
-
-/**
- * Configures Express to parse JSON requests using the body-parser middleware.
- * This middleware is used to extract the body of
- * incoming requests and make it available under the req.body property.
- * */
+app.use(cors());
 app.use(bodyParser.json());
 
-// Defines a POST endpoint at "/submit-form" where users can submit form data.
-// Defines an asynchronous request handler function
 app.post("/submit-form", async (req, res) => {
-  // Destructures the form data
-  const { firstName, lastName, email, message } = req.body;
+  const { senderEmail, firstName, lastName, message } = req.body;
 
-  // Create a nodemailer transporter
-  /*let transporter = nodemailer.createTransport({
-    // Creates a Nodemailer transporter with the SMTP settings for sending emails.
-    // Here, it's configured to use Gmail SMTP server.
-    service: "Gmail",
+  const transporter = nodemailer.createTransport({
+    host: "smtp.zoho.eu",
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
   });
-  */
-  // testing with mailtrap
-  var transporter = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525,
-    auth: {
-      user: "ed97890ddd2cb1",
-      pass: "a3e984d4830ff3",
-    },
-  });
 
-  // Compose email
   let mailOptions = {
-    from: `${email}`,
-    to: process.env.EMAIL_USER, //  personal email address
+    from: process.env.EMAIL_USER, // Your Zoho email address
+    to: process.env.EMAIL_USER, // Your personal email address
     subject: "New Contact Form Submission",
     text: `
+      Sender's Email: ${senderEmail}
       First Name: ${firstName}
       Last Name: ${lastName}
-      Email: ${email}
       Message: ${message}
     `,
   };
 
-  // Send email
   try {
     await transporter.sendMail(mailOptions);
     res.status(200).json({ message: "Form submitted successfully" });
