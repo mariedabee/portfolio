@@ -1,49 +1,23 @@
 import React, { useState } from 'react';
-import { Box, Card, CardMedia, Container, ImageList, ImageListItem, Typography } from '@mui/material';
+import { Box, Card, ImageList, ImageListItem, Typography } from '@mui/material';
 import { useStyles } from '../styles';
-import nature_portfolio from '../../shared/imagesAlbum/nature_portfolio.jpg';
-import profilePicture from '../../shared/profilePicture.jpg';
-import cow from '../../shared/imagesAlbum/cow.jpeg';
-import forest from '../../shared/imagesAlbum/forest.jpeg';
-import GreenForestMe from '../../shared/imagesAlbum/GreenForestMe.jpeg';
-import VlissingenSunsetBeach from '../../shared/imagesAlbum/VlissingenSunsetBeach.jpeg';
+import ImageGallery from './ImageGallery';
+import imageData from './imageData';
+
+
 
 const AboutPage: React.FC = () => {
     const classes = useStyles();
     const [hoveredElement, setHoveredElement] = useState<string | null>(null);
 
-    // Array of images for the scrollable image bar
-    const itemData = [
-  {
-    img: nature_portfolio,
-    title: 'nature',
-  },
-  {
-    img: profilePicture,
-    title: 'profilePicture',
-  },{
-    img: cow,
-    title: 'cow',
-  },{
-    img: forest,
-    title: 'forest',
-  },{
-    img: GreenForestMe,
-    title: 'GreenForestMe',
-  },,{
-    img: VlissingenSunsetBeach,
-    title: 'VlissingenSunsetBeach',
-  },
-];
-    const images = [nature_portfolio, profilePicture];
     return (
             <Box className={classes.root}>
                 <div>
-                            <Card 
-                            className={`${classes.card} ${classes.textCard}`} 
-                            onMouseEnter={() => setHoveredElement("skillsTitle")} 
-                            onMouseLeave={() => setHoveredElement(null)}
-                            >
+                    <Card 
+                    className={`${classes.card} ${classes.textCard}`} 
+                    onMouseEnter={() => setHoveredElement("skillsTitle")} 
+                    onMouseLeave={() => setHoveredElement(null)}
+                    >
                     {/* Skills & Experiences */}
                     <Typography
                         id="skillsTitle"
@@ -93,22 +67,10 @@ const AboutPage: React.FC = () => {
                         Eager to travel and explore, and to eventually use my skills to do something helpful for humanity.
                     </Typography>
                 </Card>
-
-                <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-                    {itemData.map((item) => (
-                        <ImageListItem key={item.img}>
-                        <img
-                            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                            alt={item.title}
-                            loading="lazy"
-                        />
-                        </ImageListItem>
-                    ))}
-                    </ImageList>
                 </div>
+                
+                <ImageGallery itemData={imageData}></ImageGallery>
             </Box>
-            
     );
 }
 
