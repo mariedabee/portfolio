@@ -22,33 +22,32 @@ const HomePage: React.FC = () => {
       <Card className={classes.card}>
         <CardContent>
           <div className="cardWrapper"> 
-        
             <div className="textWrapper"> 
               <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
                 Welcome to My Portfolio
               </Typography>
               <div className={classes.textWrapper}>
-                <Typography variant="body1" paragraph className={classes.vintageText}>
-                  Hi there! I'm a Syrian girl with a passion for exploration and learning. Having lived in various countries, including Egypt, Turkey, KSA, and currently Germany, I've been shaped by diverse experiences.
-                </Typography>
-                <Typography variant="body1" paragraph className={classes.vintageText}>
-                  My wanderlust led me to an unforgettable semester abroad in the Netherlands, where I discovered the profound impact of embracing new cultures and perspectives.
-                </Typography>
-                <Typography variant="body1" paragraph className={classes.vintageText}>
-                  I'm a kind-hearted individual who thrives on organization and structure. Animals and nature hold a special place in my heart, and I find solace in the harmony of the natural world.
-                </Typography>
-              </div>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                fullWidth
-                component={Link}
-                to="/about"
-                className="learnMoreButton" 
-              >
-                Learn More
-              </Button>
+                  <Typography variant="body1" paragraph className={classes.vintageText}>
+                  I'm a big lover of animals and nature. There's nothing quite like the soothing sound of the ocean or the gentle rustle of trees to make me feel at peace. I'm also quite active and love trying out new sports and activities whenever I can.
+                  </Typography>
+                  <Typography variant="body1" paragraph className={classes.vintageText}>
+                  Music has been my rock during tough times, offering me comfort and solace. It's something that's very close to my heart. When it comes to meeting new people, I can be a bit shy at first, but give me time, and I'll warm up to you!                
+                  </Typography>
+                  <Typography variant="body1" paragraph className={classes.vintageText}>
+                  During my studies, I embarked on a transformative semester abroad in the Netherlands, an experience that profoundly shaped my perspective. I've come to value structure and adherence to guidelines, as they enable me to effectively manage my diverse interests. Organization is key for me, as I harbor a keen fascination for a multitude of subjects and find myself drawn in many directions simultaneously.
+                  </Typography>
+                </div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  fullWidth
+                  component={Link}
+                  to="/about"
+                  className="learnMoreButton" 
+                >
+                  Learn More
+                </Button>
             </div>
           </div>
         </CardContent>
