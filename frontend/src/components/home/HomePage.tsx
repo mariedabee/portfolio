@@ -4,7 +4,7 @@ import { Typography, Button, Card, CardContent, Box, CardMedia } from '@mui/mate
 import { Link } from 'react-router-dom';
 import { useStyles } from '../styles';
 import profilePicture from '../../shared/profilePicture.jpg';
-import './HomePage.css'; // Import the CSS file
+import './HomePage.css'; 
 
 const HomePage: React.FC = () => {
   const classes = useStyles();
