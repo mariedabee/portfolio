@@ -1,31 +1,44 @@
-import React from "react"
-import { useState } from "react"
+import React from "react";
+import { useState } from "react";
+import { Box, Button, Typography, List, ListItem, ListItemText } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  arrayImage: {
+    backgroundImage: `url('../../shared/dataStructures/array.png')`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "contain",
+    backgroundPosition: "center",
+  },
+});
 
 export const ArraysComponent = () => {
-   const [array, setArray] = useState([])
+  const classes = useStyles();
+  const [array, setArray] = useState([]);
 
-   const handleInsert = () =>{
-    const newItem = prompt('Enter item to insert in the array: ')
-    setArray([...array, newItem]) 
-   }
+  const handleInsert = () => {
+    const newItem = prompt('Enter item to insert in the array: ');
+    setArray([...array, newItem]);
+  };
 
-   const handleRemove = () => {
-    const newArray = array.slice(0, -1)
-    setArray(newArray)
-   }
+  const handleRemove = () => {
+    const newArray = array.slice(0, -1);
+    setArray(newArray);
+  };
 
-   
-    return (
-        <div>
-            <h2>Array</h2>
-            <button onClick={handleInsert}>Insert item to the array</button>
-            <button onClick={handleRemove}>Remove</button>
-
-            <ul>
-                {array.map((item, index) =>(
-                    <li key={index}> {item} </li>
-                ))}
-            </ul>
-        </div>
-    )
-}
+  return (
+    <Box>
+      <Typography variant="h2" gutterBottom>Array</Typography>
+      <Box className={classes.arrayImage}></Box>
+      <Button variant="contained" color="primary" onClick={handleInsert}>Insert</Button>
+      <Button variant="contained" color="secondary" onClick={handleRemove}>Remove</Button>
+      <List>
+        {array.map((item, index) => (
+          <ListItem key={index}>
+            <ListItemText primary={item} />
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+};

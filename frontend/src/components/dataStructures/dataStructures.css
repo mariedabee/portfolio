@@ -1,0 +1,12 @@
+
+.stack-image {
+    background-image: url('../../shared/dataStructures/stack.webp');
+    background-size: cover;
+    background-position: center;
+}
+.queue-image {
+    flex-grow: 1;
+    background-image: url('../../shared/dataStructures/Queue.png');
+    background-size: cover;
+    background-position: center;
+}

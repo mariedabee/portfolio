@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import  "./dataStructures.css"
 
 export const QueueComponent = () =>{
     const [queue, setQueue] = useState([])
@@ -16,6 +17,7 @@ export const QueueComponent = () =>{
     return (
         <div>
         <h2>Queue</h2>
+        <div className="queue-image"></div>
         <button onClick={handleEnqueu}>Enqueue</button>
         <button onClick={handleDequeue}>Dequeue</button>
 
