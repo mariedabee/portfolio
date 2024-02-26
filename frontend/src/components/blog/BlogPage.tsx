@@ -11,20 +11,38 @@ export default function BlogPage() {
     }, []);
 
     const fetchPosts = async () => {
-    try {
-        const response = await fetch('http://localhost:3001/api/posts');
+        try {
+            const response = await fetch('http://localhost:3001/api/posts');
+            if (!response.ok) {
+                throw new Error('Failed to fetch posts');
+            }
+            const data = await response.json();
+            if (!Array.isArray(data)) {
+                throw new Error('Fetched data is not an array');
+            }
+            setPosts(data);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+        }
+    };
+
+    // Function to handle post deletion
+const deletePost = async(postId) => {
+    try{
+        const response = await fetch(`http://localhost:3001/api/posts/${postId}`, {
+            method: 'DELETE',
+        });
         if (!response.ok) {
-            throw new Error('Failed to fetch posts');
+            throw new Error('Failed to delete post');
         }
-        const data = await response.json();
-        if (!Array.isArray(data)) {
-            throw new Error('Fetched data is not an array');
-        }
-        setPosts(data);
-    } catch (error) {
+        // Remove the deleted post from the local state
+        setPosts(posts.filter(post => post._id !== postId));
+    }catch (error) {
         console.error('Error fetching posts:', error);
     }
-};
+}
+
+
 
 
     return (
@@ -61,6 +79,10 @@ export default function BlogPage() {
                                     )}
                                 </Box>
                             </ListItem>
+                           <Button variant="contained" color="primary" onClick={() => deletePost(post._id)}>
+                                delete post
+                            </Button>
+
                         </Card>
                     ))}
                 </List>
