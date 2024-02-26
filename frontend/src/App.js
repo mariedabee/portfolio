@@ -8,6 +8,8 @@ import { DataStructures } from "./components/dataStructures/DataStructures";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import darkTheme from "./components/darkTheme";
+import BlogPage from "./components/blog/BlogPage";
+import NewPostPage from "./components/blog/NewPostPage";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/dataStructures" element={<DataStructures />} />
+          <Route path="/blogPage" element={<BlogPage />} />
+          <Route path="/new-post" element={<NewPostPage />} />
         </Routes>
         <Footer />
       </Router>

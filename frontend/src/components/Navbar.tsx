@@ -17,6 +17,7 @@ const Navbar: React.FC = () => {
                 <Button color="inherit" component={Link} to="/portfolio">Portfolio</Button>
                 <Button color="inherit" component={Link} to="/contact">Contact</Button>
                 <Button color="inherit" component={Link} to="/dataStructures">Data Structures</Button>
+                <Button color="inherit" component={Link} to="/blogPage">Blogs</Button>
             </Toolbar>
         </AppBar>
     );
