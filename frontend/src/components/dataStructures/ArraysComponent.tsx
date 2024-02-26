@@ -1,16 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Box, Button, Typography, List, ListItem, ListItemText } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { useStyles } from "../styles";
 
-const useStyles = makeStyles({
-  arrayImage: {
-    backgroundImage: `url('../../shared/dataStructures/array.png')`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "contain",
-    backgroundPosition: "center",
-  },
-});
 
 export const ArraysComponent = () => {
   const classes = useStyles();
@@ -30,6 +22,7 @@ export const ArraysComponent = () => {
     <Box>
       <Typography variant="h2" gutterBottom>Array</Typography>
       <Box className={classes.arrayImage}></Box>
+      <div className={classes.arrayImage}></div>
       <Button variant="contained" color="primary" onClick={handleInsert}>Insert</Button>
       <Button variant="contained" color="secondary" onClick={handleRemove}>Remove</Button>
       <List>

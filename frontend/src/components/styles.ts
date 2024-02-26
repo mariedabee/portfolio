@@ -73,4 +73,10 @@ export const useStyles = makeStyles((theme: any) => ({
   iconButtonGithub: {
     color: theme.palette.text.secondary,
   },
+  arrayImage: {
+    backgroundImage: `url('../shared/dataStructures/array.png')`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "contain",
+    backgroundPosition: "center",
+  },
 }));
