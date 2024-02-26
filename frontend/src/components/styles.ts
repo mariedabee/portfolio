@@ -79,4 +79,11 @@ export const useStyles = makeStyles((theme: any) => ({
     backgroundSize: "contain",
     backgroundPosition: "center",
   },
+  blogPost: {
+    width: "75%", // Set width to 75%
+    margin: "0 auto", // Center horizontally
+    textAlign: "center", // Center text
+    padding: theme.spacing(0.1),
+    marginBlock: theme.spacing(2),
+  },
 }));
