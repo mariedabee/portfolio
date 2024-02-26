@@ -16,13 +16,14 @@ function NewPostPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('localhost:3001/api/posts', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ title, content, category, tags: tags.split(',') }),
-            });
+            const response = await fetch('http://localhost:3001/api/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ title, content, category, tags: tags.split(',') }),
+        });
+
             if (response.ok) {
                 setSnackbarMessage('Post created successfully');
                 setSnackbarOpen(true);
