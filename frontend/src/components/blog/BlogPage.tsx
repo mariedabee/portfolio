@@ -11,10 +11,7 @@ function BlogPage() {
     const fetchPosts = async () => {
         try {
             const response = await fetch('http://localhost:3001/api/posts'); // Endpoint to get all posts
-            console.log('response tsx:', response)
             const data = await response.json();
-            console.log('data tsx:', data)
-
             setPosts(data);
         } catch (error) {
             console.error('Error fetching posts:', error);

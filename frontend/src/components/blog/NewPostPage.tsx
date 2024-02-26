@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import { Container, Typography, TextField, Button, Snackbar, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useStyles } from '../styles';
 
 function NewPostPage() {
     const [title, setTitle] = useState('');
@@ -10,11 +11,12 @@ function NewPostPage() {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const navigate = useNavigate();
+    const classes = useStyles();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('/api/posts', {
+            const response = await fetch('localhost:3001/api/posts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +42,8 @@ function NewPostPage() {
     };
 
     return (
-        <Container>
+            <Box className={classes.root}>
+        <Container >
             <Typography variant="h4" component="h1" gutterBottom>
                 New Post
             </Typography>
@@ -92,6 +95,7 @@ function NewPostPage() {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
             />
         </Container>
+        </Box>
     );
 }
 
