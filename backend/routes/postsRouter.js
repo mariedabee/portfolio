@@ -5,11 +5,15 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   try {
     // Extract title and content from request body
-    const { title, content } = req.body;
+    let { title, content, category, tags, date } = req.body;
+    const currentDate = new Date().toDateString();
+    date = currentDate;
 
     // Access MongoDB client from request object and insert new post into database
     const db = req.dbClient.db();
-    const result = await db.collection("posts").insertOne({ title, content });
+    const result = await db
+      .collection("posts")
+      .insertOne({ title, content, category, tags, date });
 
     // Respond with success status and inserted post ID
     res.status(201).json({ id: result.insertedId });

@@ -60,8 +60,8 @@ const deletePost = async(postId) => {
                             {/* Left side */}
                             <ListItem>
                                 <Box flexGrow={1}>
-                                    <ListItemText primary={post.title} />
-                                    <ListItemText primary={post.content} />
+                                <Typography variant="h1" style={{ fontSize: '35px' }}>{post.title}</Typography>                                    
+                                <ListItemText primary={post.content} />
                                 </Box>
 
                                 {/* Right side */}
@@ -72,11 +72,15 @@ const deletePost = async(postId) => {
 
                             {/* Centered */}
                             <ListItem>
-                                <Box textAlign="center">
+                                <Box textAlign="left">
                                     <ListItemText primary={`Category: ${post.category}`} />
+                                    
+                                </Box>
+                                 {/* Right side */}
+                                <Box textAlign="right">
                                     {post.tags && (
                                         <ListItemText primary={`Tags: ${post.tags.join(', ')}`} />
-                                    )}
+                                    )}                                
                                 </Box>
                             </ListItem>
                            <Button variant="contained" color="primary" onClick={() => deletePost(post._id)}>
