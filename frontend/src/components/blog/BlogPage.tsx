@@ -4,11 +4,21 @@ import { useStyles } from '../styles';
 import { createPost, updatePost, fetchPosts, deletePost } from '../blog/postService';
 import { Navigate, useNavigate } from 'react-router-dom';
 
+// Define interface for post object
+interface Post {
+    _id: string;
+    title: string;
+    content: string;
+    date: string;
+    category?: string;
+    tags?: string[];
+}
+
 export default function BlogPage() {
     const classes = useStyles();
     const navigate = useNavigate();
-    const [posts, setPosts] = useState([]);
-
+    const [posts, setPosts] = useState<Post[]>([]); // Specify type as Post[]
+    
     useEffect(() => {
         async function fetchData() {
             try {
