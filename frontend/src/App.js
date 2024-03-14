@@ -10,6 +10,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import darkTheme from "./components/darkTheme";
 import BlogPage from "./components/blog/BlogPage";
 import NewPostPage from "./components/blog/NewPostPage";
+import PortfolioPage from "./components/portfolio/PortfolioPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/blogPage" element={<BlogPage />} />
           <Route path="/new-post" element={<NewPostPage />} />
           <Route path="/editPost/:postId" element={<NewPostPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
         </Routes>
         <Footer />
       </Router>
