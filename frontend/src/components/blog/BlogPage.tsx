@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Button, List, ListItem, ListItemText, Box, Card } from '@mui/material';
 import { useStyles } from '../styles';
-import { fetchPosts, deletePost } from '../blog/postService'; 
+import { createPost, updatePost, fetchPosts, deletePost } from '../blog/postService';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function BlogPage() {
     const classes = useStyles();
+    const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -26,6 +28,10 @@ export default function BlogPage() {
         } catch (error) {
             console.error('Error deleting post:', error);
         }
+    };
+
+    const handleEditPost = async (postId) => {
+        navigate(`/editPost/${postId}`);
     };
 
     return (
@@ -68,6 +74,9 @@ export default function BlogPage() {
                             </ListItem>
                             <Button variant="contained" style={{margin: '15px'}} color="primary" onClick={() => handleDeletePost(post._id)}>
                                     delete post
+                            </Button>
+                            <Button variant="contained" style={{margin: '15px'}} color="primary" onClick={() => handleEditPost(post._id)}>
+                                    EDIT
                             </Button>
                         </Card>
                     ))}

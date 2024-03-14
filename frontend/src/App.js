@@ -23,6 +23,7 @@ function App() {
           <Route path="/dataStructures" element={<DataStructures />} />
           <Route path="/blogPage" element={<BlogPage />} />
           <Route path="/new-post" element={<NewPostPage />} />
+          <Route path="/editPost/:postId" element={<NewPostPage />} />
         </Routes>
         <Footer />
       </Router>

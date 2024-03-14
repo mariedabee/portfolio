@@ -70,5 +70,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 # mongo db
+
 ## to run: mongod --dbpath ~/data/db
+
 ## to list objects in db 'portfolio': db.posts.find()
+
+## > show dbs
+
+## > use portfolio : switch to DB 'portfolio'
+
+## > show collections
+
+## > db.posts.find() : list data inside 'posts' table
