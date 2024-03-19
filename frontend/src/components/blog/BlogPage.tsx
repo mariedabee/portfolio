@@ -56,17 +56,15 @@ export default function BlogPage() {
                 <List>
                     {posts.map((post) => (
                         <Card className={`${classes.blogPost}`} key={post._id}>
-                            {/* Left side */}
+                            {/* Right side */}
+                            <Box textAlign="right">
+                                    <ListItemText primary={`Date: ${post.date}`} />
+                            </Box>
                             <ListItem>
                                 <Box flexGrow={1}>
                                 <Typography variant="h1" style={{ fontSize: '35px' }} >{post.title}</Typography>                                    
-                                <Typography variant="h1" style={{ fontSize: '25px' }} >{post.content}</Typography>                                                                    
-                                </Box>
-
-                                {/* Right side */}
-                                <Box textAlign="right">
-                                    <ListItemText primary={`Date: ${post.date}`} />
-                                </Box>
+                                <Typography variant="h1" style={{ fontSize: '25px', whiteSpace: 'pre-line' }} >{post.content}</Typography>                                                                    
+                                </Box>                    
                             </ListItem>
 
                             {/* Centered */}

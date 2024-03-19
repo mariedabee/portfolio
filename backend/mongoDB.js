@@ -1,17 +1,19 @@
-const { MongoClient } = require("mongodb");
+// mongoDB.js
+const mongoose = require("mongoose");
 
-// MongoDB Connection URI
-const uri = process.env.MONGODB_URI; // Get URI from environment variables
+const uri = process.env.MONGODB_URI;
 
-const connectToMongoDB = async (req, res, next) => {
+const connectToMongoDB = async () => {
   try {
-    const client = new MongoClient(uri);
-    await client.connect();
-    req.dbClient = client;
-    next();
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+    });
+    console.log("Connected to MongoDB");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
-    res.status(500).json({ error: "Database error" });
+    throw error; // Rethrow the error to propagate it to the caller
   }
 };
 

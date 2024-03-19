@@ -1,3 +1,4 @@
+//server.js
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -17,9 +18,13 @@ const connectToMongoDB = require("./mongoDB");
 
 // Import routes
 const postsRouter = require("./routes/postsRouter");
+const authRouter = require("./routes/authRouter"); // Import authRouter
 
 // Use MongoDB middleware for all routes under /api/posts
 app.use("/api/posts", connectToMongoDB, postsRouter);
+
+// Use authRouter for user authentication routes
+app.use("/api/auth", authRouter);
 
 // Endpoint to handle form submission
 app.post("/submit-form", async (req, res) => {
