@@ -1,6 +1,8 @@
+//authRouter.js
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 // Endpoint to handle user registration
@@ -36,6 +38,34 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
 
+  try {
+    // Find user by email
+  
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // Verify password
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h", // Token expires in 1 hour
+    });
+
+    // Respond with token
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error("Error logging in user:", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 module.exports = router;
