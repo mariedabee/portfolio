@@ -1,4 +1,3 @@
-//authRouter.js
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
@@ -10,7 +9,6 @@ router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
-    console.log("body:", req.body)
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -38,12 +36,12 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// Endpoint to handle user login
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
     // Find user by email
-  
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ error: "Invalid credentials" });
