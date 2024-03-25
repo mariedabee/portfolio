@@ -11,6 +11,9 @@ import darkTheme from "./components/darkTheme";
 import BlogPage from "./components/blog/BlogPage";
 import NewPostPage from "./components/blog/NewPostPage";
 import PortfolioPage from "./components/portfolio/PortfolioPage";
+import Login from "./components/auth/Login"; 
+import Signup from "./components/auth/Signup"; 
+
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
           <Route path="/new-post" element={<NewPostPage />} />
           <Route path="/editPost/:postId" element={<NewPostPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
         <Footer />
       </Router>
