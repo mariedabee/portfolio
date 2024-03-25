@@ -3,11 +3,12 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const postsRouter = require("./routes/postsRouter");
 const { submitForm } = require("./routes/formSubmitController");
 const { signup } = require("./routes/signupController");
 // Import MongoDB connection middleware
 const { connectToMongoDB } = require("./mongoDB");
-const postsRouter = require("./routes/postsRouter");
+const { login } = require("./routes/loginController");
 
 const app = express();
 
@@ -35,6 +36,9 @@ connectToMongoDB()
 
     // Endpoint to handle user signup
     app.post("/signup", signup);
+
+    // Endpoint to handle user login
+    app.post("/login", login);
 
     // Start the server
     const PORT = process.env.PORT || 3001;
