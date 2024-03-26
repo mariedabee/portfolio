@@ -1,29 +1,32 @@
 import React, { useState } from "react";
-import { TextField, Button, Container } from "@mui/material";
+import { TextField, Button, Container, Box } from "@mui/material";
 import { signup } from "./authApi";
+import { useStyles } from "../styles";
 
 const Signup: React.FC = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signupSuccess, setSignupSuccess] = useState(false); // State to track signup success
+  const classes = useStyles();
 
   const handleSignup = async () => {
     try {
       // Call the signup function 
-      const response = await signup({
+      await signup({
         username,
         email,
         password,
       });
-      console.log(response); // Handle successful signup
-      // Redirect user or perform any other actions upon successful signup
+      // Update signup success state
+      setSignupSuccess(true);
     } catch (error) {
       console.error("Error signing up:", error.message);
-      // Handle signup error
     }
   };
 
   return (
+    <Box className={classes.root}>
     <Container maxWidth="sm">
       <h2>Sign Up</h2>
       <TextField
@@ -52,7 +55,9 @@ const Signup: React.FC = () => {
       <Button variant="contained" onClick={handleSignup}>
         Sign Up
       </Button>
+      {signupSuccess && <p>Sign up successful!</p>} 
     </Container>
+    </Box>
   );
 };
 

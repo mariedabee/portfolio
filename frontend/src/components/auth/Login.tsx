@@ -1,28 +1,36 @@
 import React, { useState } from "react";
-import { TextField, Button, Container } from "@mui/material";
-import axios from "axios";
+import { TextField, Button, Container, Box } from "@mui/material";
 import { login } from "./authApi";
+import { useStyles } from "../styles";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
 
   const handleLogin = async () => {
     try {
-      // Call the login function from authApi.js instead of axios
-      const response = await login({
+      // Call the login function from authApi.js 
+      await login({
         username,
         password,
       });
-      console.log(response); // Handle successful login
-      // Redirect user or perform any other actions upon successful login
+      // Update login status to true
+      setIsLoggedIn(true);
     } catch (error) {
       console.error("Error logging in:", error.message);
-      // Handle login error
     }
   };
 
+  const handleLogout = () => {
+    // Implement logout functionality here
+    setIsLoggedIn(false);
+  };
+  
+  const classes = useStyles();
+
   return (
+    <Box className={classes.root}>
     <Container maxWidth="sm">
       <h2>Login</h2>
       <TextField
@@ -40,10 +48,20 @@ const Login: React.FC = () => {
         fullWidth
         margin="normal"
       />
-      <Button variant="contained" onClick={handleLogin}>
-        Login
-      </Button>
+      {isLoggedIn ? (
+        <>
+          <p>Welcome, {username}!</p>
+          <Button variant="contained" onClick={handleLogout}>
+            Log Out
+          </Button>
+        </>
+      ) : (
+        <Button variant="contained" onClick={handleLogin}>
+          Login
+        </Button>
+      )}
     </Container>
+    </Box>
   );
 };
 

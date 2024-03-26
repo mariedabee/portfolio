@@ -2,7 +2,7 @@
 
 export const login = async (userData) => {
   try {
-    const response = await fetch("http://localhost:3001/login", {
+    const response = await fetch("http://localhost:3001/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const login = async (userData) => {
 
 export const signup = async (userData) => {
   try {
-    const response = await fetch("http://localhost:3001/signup", {
+    const response = await fetch("http://localhost:3001/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

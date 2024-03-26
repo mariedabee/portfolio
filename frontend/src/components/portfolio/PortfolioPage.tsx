@@ -15,6 +15,12 @@ const PortfolioPage: React.FC = () => {
       <Box>
         <Button color="inherit" component={Link} to="/blogPage">Blogs</Button>
       </Box>
+      <Box>
+        <Button color="inherit" component={Link} to="/login">Log in</Button>
+      </Box>
+      <Box>
+        <Button color="inherit" component={Link} to="/signup">Sign up</Button>
+      </Box>
     </div>
   );
 }

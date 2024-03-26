@@ -9,6 +9,7 @@ const { signup } = require("./routes/signupController");
 // Import MongoDB connection middleware
 const { connectToMongoDB } = require("./mongoDB");
 const { login } = require("./routes/loginController");
+const { logout } = require("./routes/logoutController");
 
 const app = express();
 
@@ -35,10 +36,12 @@ connectToMongoDB()
     app.post("/submit-form", submitForm);
 
     // Endpoint to handle user signup
-    app.post("/signup", signup);
+    app.post("/api/auth/signup", signup);
 
     // Endpoint to handle user login
-    app.post("/login", login);
+    app.post("/api/auth/login", login);
+
+    app.post("/api/auth/logout", logout);
 
     // Start the server
     const PORT = process.env.PORT || 3001;
