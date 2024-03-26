@@ -26,7 +26,11 @@ export const useStyles = makeStyles((theme: any) => ({
       transform: "scale(1)",
     },
   },
-
+  transparentWhiteBackground: {
+    //White with 50% opacity
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    margin: 4,
+  },
   textWrapper: {
     flex: 1, // Allow text to grow to fill available space
   },

@@ -13,13 +13,11 @@ const Navbar: React.FC = () => {
                 </Link>
                  <Button color="inherit" component={Link} to="/">Home</Button>
                 <Button color="inherit" component={Link} to="/about">About</Button>
-                <Button color="inherit" component={Link} to="/portfolio">Portfolio</Button>
                 <Button color="inherit" component={Link} to="/contact">Contact</Button>
           
                 {/* Use Box component with flexGrow to push buttons to the right */}
                 <Box flexGrow={1} />
-                <Button color="inherit" component={Link} to="/dataStructures">Data Structures</Button>
-                <Button color="inherit" component={Link} to="/blogPage">Blogs</Button>
+                <Button color="inherit" component={Link} to="/portfolio">Portfolio</Button>
             </Toolbar>
         </AppBar>
     );

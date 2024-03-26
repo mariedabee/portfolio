@@ -10,16 +10,16 @@ const PortfolioPage: React.FC = () => {
   return (
     <div className={classes.root}>
       <Box>
-        <Button color="inherit" component={Link} to="/dataStructures">Data Structures</Button>
+        <Button className={classes.transparentWhiteBackground} color="primary" component={Link} to="/dataStructures">Data Structures</Button>
       </Box>
       <Box>
-        <Button color="inherit" component={Link} to="/blogPage">Blogs</Button>
+        <Button className={classes.transparentWhiteBackground} color="primary" component={Link} to="/blogPage">Blogs</Button>
       </Box>
       <Box>
-        <Button color="inherit" component={Link} to="/login">Log in</Button>
+        <Button className={classes.transparentWhiteBackground} color="primary" component={Link} to="/login">Log in</Button>
       </Box>
       <Box>
-        <Button color="inherit" component={Link} to="/signup">Sign up</Button>
+        <Button className={classes.transparentWhiteBackground} color="primary" component={Link} to="/signup">Sign up</Button>
       </Box>
     </div>
   );
