@@ -15,9 +15,9 @@ const Navbar: React.FC = () => {
                 <Button color="inherit" component={Link} to="/about">About</Button>
                 <Button color="inherit" component={Link} to="/contact">Contact</Button>
           
-                {/* Use Box component with flexGrow to push buttons to the right */}
                 <Box flexGrow={1} />
-                <Button color="inherit" component={Link} to="/portfolio">Portfolio</Button>
+                <Button color="inherit" component={Link} to="/portfolio">Projects</Button>
+                <Button color="inherit" component={Link} to="/blogPage">Blogs</Button>
             </Toolbar>
         </AppBar>
     );

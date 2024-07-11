@@ -23,8 +23,10 @@ export const ArraysComponent = () => {
       <Typography variant="h2" gutterBottom>Array</Typography>
       <Box className={classes.arrayImage}></Box>
       <div className={classes.arrayImage}></div>
+       <Box display="flex" gap={2}>
       <Button variant="contained" color="primary" onClick={handleInsert}>Insert</Button>
       <Button variant="contained" color="secondary" onClick={handleRemove}>Remove</Button>
+    </Box>
       <List>
         {array.map((item, index) => (
           <ListItem key={index}>

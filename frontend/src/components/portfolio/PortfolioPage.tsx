@@ -9,17 +9,17 @@ const PortfolioPage: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <Box>
-        <Button className={classes.transparentWhiteBackground} color="primary" component={Link} to="/dataStructures">Data Structures</Button>
+      <Box className={classes.transparentWhiteBackground}>
+        <Button color="primary" component={Link} to="/dataStructures">Data Structures</Button>
       </Box>
-      <Box>
-        <Button className={classes.transparentWhiteBackground} color="primary" component={Link} to="/blogPage">Blogs</Button>
+      <Box className={classes.transparentWhiteBackground}>
+        <Button  color="primary" component={Link} to="/blogPage">Blogs</Button>
       </Box>
-      <Box>
-        <Button className={classes.transparentWhiteBackground} color="primary" component={Link} to="/login">Log in</Button>
+      <Box className={classes.transparentWhiteBackground}>
+        <Button  color="primary" component={Link} to="/login">Log in</Button>
       </Box>
-      <Box>
-        <Button className={classes.transparentWhiteBackground} color="primary" component={Link} to="/signup">Sign up</Button>
+      <Box className={classes.transparentWhiteBackground} >
+        <Button color="primary" component={Link} to="/signup">Sign up</Button>
       </Box>
     </div>
   );

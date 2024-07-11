@@ -27,8 +27,11 @@ export const useStyles = makeStyles((theme: any) => ({
     },
   },
   transparentWhiteBackground: {
-    //White with 50% opacity
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    backgroundColor: "rgba(255, 255, 255, 0.5)", // White with 50% opacity
+    color: "white", // Text color (optional)
+    "&:hover": {
+      backgroundColor: "rgba(255, 255, 255, 0.7)", // Adjust opacity on hover if needed
+    },
     margin: 4,
   },
   textWrapper: {
