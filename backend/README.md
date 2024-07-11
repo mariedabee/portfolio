@@ -1,3 +1,7 @@
+## To run the backend :
+- **Create an environment file with**: MONGODB_URI=mongodb://username:password@hostname:port/database e.g. MONGODB_URI=mongodb://username:password@hostname:port/database
+- **Run server with**: node server.js
+
 ## User Authentication Mechanisms
 
 ### Login
