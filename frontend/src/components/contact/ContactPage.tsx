@@ -5,8 +5,6 @@ import { useStyles } from '../styles';
 import { useLanguage } from '../../i18n/LanguageContext';
 import './ContactPage.css'; 
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
-
 const ContactPage: React.FC = () => {
   const classes = useStyles();
   const { t } = useLanguage();
@@ -70,7 +68,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   setSubmissionError(null);
   try {
     // Send form data to backend
-    const response = await fetch(`${API_URL}/submit-form`, {
+    const response = await fetch('/api/submit-form', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

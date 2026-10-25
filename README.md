@@ -10,7 +10,7 @@ The personal portfolio of **Mariam Bari**, a software developer from the Bremen 
 - **Interactive background:** a neon particle network that reacts to the mouse, over a scrolling retro grid
 - **English / German:** language switch in the navbar; defaults to the visitor's browser language and remembers their choice
 - **CV page with PDF download:** the CV is rendered on the site and generated as a clean A4 PDF in the selected language
-- **Contact form:** messages are stored in MongoDB and emailed via SMTP, with server-side validation and spam protection (honeypot field, minimum fill time, 5 messages per visitor per hour)
+- **Contact form:** messages are emailed via SMTP (and optionally stored in MongoDB), with server-side validation and spam protection (honeypot field, minimum fill time, 5 messages per visitor per hour)
 - **Link previews:** custom preview card when the site is shared on LinkedIn, WhatsApp, X, …
 - **Photo gallery:** tilted memory cards with a lightbox (arrow keys to browse)
 
@@ -19,63 +19,63 @@ The personal portfolio of **Mariam Bari**, a software developer from the Bremen 
 | Layer | Technologies |
 | --- | --- |
 | Frontend | React 18, TypeScript, Material UI, React Router, `@react-pdf/renderer` |
-| Backend | Node.js, Express, MongoDB, Nodemailer |
+| API | Vercel serverless function (Node.js), Nodemailer, optional MongoDB |
+| Hosting | Vercel |
 | Tooling | Create React App, Git, VS Code, Postman |
 
 ## Project structure
 
 ```
 frontend/
+  api/
+    submit-form.js         contact form endpoint (POST /api/submit-form)
+    _spamProtection.js     honeypot, timing check and rate limit
   public/                  favicon, app icons, link preview image, index.html
   src/
     components/            pages and UI (home, about, cv, contact, navbar, background, …)
     data/cvData.ts         ALL CV content (EN + DE): jobs, education, skills, certificates, availability
     i18n/translations.ts   UI text (EN + DE)
     shared/                images (profile picture, gallery photos, logo)
-backend/
-  server.js                Express app
-  routes/                  contact form + spam protection
-  .env.example             template for local settings
+    setupProxy.js          runs the API inside the local dev server
+  vercel.json              routing for Vercel
 ```
 
 ## Running locally
 
-**Requirements:** Node.js 18+ and MongoDB (e.g. `brew services start mongodb-community`).
-
-### 1. Backend
-
-```bash
-cd backend
-npm install
-cp .env.example .env     # then fill in your values
-node server.js           # runs on http://localhost:3001
-```
-
-`.env` settings:
-
-| Variable | Purpose |
-| --- | --- |
-| `MONGODB_URI` | MongoDB connection, e.g. `mongodb://localhost:27017/portfolio` |
-| `EMAIL_USER`, `EMAIL_PASS` | SMTP login for contact form emails (for Gmail, use an [App Password](https://myaccount.google.com/apppasswords)) |
-| `EMAIL_TO` | optional: where messages are delivered (defaults to `EMAIL_USER`) |
-| `EMAIL_HOST`, `EMAIL_PORT` | optional: SMTP server (defaults to Gmail) |
-
-Without email settings, contact messages are still saved to the `messages` collection.
-
-### 2. Frontend
+**Requirements:** Node.js 18+.
 
 ```bash
 cd frontend
-npm install --legacy-peer-deps   # @mui/styles still declares a React 17 peer dependency
-npm start                        # runs on http://localhost:3000
+npm install                  # .npmrc sets legacy-peer-deps (@mui/styles still declares React 17)
+cp .env.example .env.local   # then fill in your email settings
+npm start                    # site + contact form API on http://localhost:3000
 ```
 
-Settings live in `frontend/.env`:
+The contact form API runs inside the dev server, so there is no separate backend to start.
+
+### Settings
+
+`frontend/.env.local` (secrets, git-ignored; on Vercel: Project Settings → Environment Variables):
 
 | Variable | Purpose |
 | --- | --- |
-| `REACT_APP_SITE_URL` | public address of the site, used for link previews; set it to the live `https://` address when deploying |
-| `REACT_APP_API_URL` | optional: backend address (defaults to `http://localhost:3001`) |
+| `EMAIL_USER`, `EMAIL_PASS` | SMTP login for contact form emails (for Gmail, use an [App Password](https://myaccount.google.com/apppasswords)) |
+| `EMAIL_TO` | optional: where messages are delivered (defaults to `EMAIL_USER`) |
+| `EMAIL_HOST`, `EMAIL_PORT` | optional: SMTP server (defaults to Gmail) |
+| `MONGODB_URI` | optional: also store messages in MongoDB, e.g. a free [MongoDB Atlas](https://www.mongodb.com/atlas) cluster |
+
+`frontend/.env` (public, committed):
+
+| Variable | Purpose |
+| --- | --- |
+| `REACT_APP_SITE_URL` | public address of the site, used for link previews; set it to the live `https://` address |
+
+## Deploying to Vercel
+
+1. Import the GitHub repo on [vercel.com](https://vercel.com) and set **Root Directory** to `frontend`.
+2. Add the environment variables from `.env.local` (and `REACT_APP_SITE_URL` with the live address).
+3. Deploy. Every `git push` to `main` deploys automatically.
+4. Add a custom domain under Project Settings → Domains.
 
 ## Updating content
 
@@ -88,14 +88,6 @@ Settings live in `frontend/.env`:
 | Link preview image | `frontend/public/og-image.png` (1200×630) |
 
 The CV page and the PDF download both read from `cvData.ts`, so they always stay in sync.
-
-## Useful MongoDB commands
-
-```bash
-mongosh portfolio
-db.messages.find().sort({ createdAt: -1 })   # latest contact messages
-show collections
-```
 
 ## Contact
 

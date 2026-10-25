@@ -13,10 +13,10 @@
 
 # misc
 /frontend/.DS_Store
-/frontend/.env.local
-/frontend/.env.development.local
-/frontend/.env.test.local
-/frontend/.env.production.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 /frontend/npm-debug.log*
 /frontend/yarn-debug.log*
