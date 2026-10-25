@@ -1,12 +1,12 @@
 // _spamProtection.js: keeps bots away from the contact form
-// (the leading underscore stops Vercel from exposing this file as an endpoint)
+// (the leading underscore keeps it from becoming an endpoint on Vercel)
 
 const WINDOW_MS = 60 * 60 * 1000; // 1 hour
 const MAX_PER_WINDOW = 5;
 const MIN_FILL_TIME_MS = 3000; // humans need more than 3 seconds to fill in the form
 
-// In-memory rate limit per IP address. On Vercel each function instance keeps its
-// own memory, so this is best effort; the honeypot and timing checks always apply.
+// In-memory rate limit per IP address. Exact on a single server (Railway); best
+// effort on serverless hosts where each instance has its own memory.
 const hits = new Map();
 
 function clientIp(req) {

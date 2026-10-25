@@ -1,5 +1,5 @@
 // Runs the serverless API functions inside the local dev server (npm start),
-// so local development uses the same code as Vercel in production.
+// so local development uses the same code as production (server.js).
 const express = require("express");
 const submitForm = require("../api/submit-form");
 

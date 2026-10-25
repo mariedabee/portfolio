@@ -19,6 +19,10 @@ export const useStyles = makeStyles((theme: any) => ({
     width: "80%",
     maxWidth: "600px",
     padding: theme.spacing(4),
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      padding: theme.spacing(3, 1),
+    },
     position: "relative",
     "&:hover": {
       transform: "translate(-3px, -3px)",
@@ -69,6 +73,8 @@ export const useStyles = makeStyles((theme: any) => ({
     "&.MuiTypography-h4": {
       color: neon.green,
       animation: "glow-pulse 3s ease-in-out infinite",
+      fontSize: "clamp(1.5rem, 7vw, 2.125rem)",
+      overflowWrap: "anywhere",
     },
   },
   textCard: {

@@ -1,6 +1,26 @@
 .contact-container {
     display: flex;
     width: 75%;
+    max-width: 1000px;
+}
+
+.contact-card.MuiCard-root {
+    width: 60%;
+}
+
+/* Phones/tablets: full-width form, no side photo */
+@media (max-width: 899px) {
+    .contact-container {
+        width: 100%;
+    }
+
+    .contact-card.MuiCard-root {
+        width: 100%;
+    }
+
+    .background-image {
+        display: none;
+    }
 }
 
 .background-image {

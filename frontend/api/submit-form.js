@@ -1,6 +1,6 @@
 // submit-form.js: contact form endpoint (POST /api/submit-form)
-// Runs as a Vercel serverless function in production and inside the
-// CRA dev server locally (see src/setupProxy.js).
+// Mounted by server.js in production (Railway) and by the CRA dev server
+// locally (see src/setupProxy.js). Also works as a Vercel serverless function.
 const nodemailer = require("nodemailer");
 const { MongoClient } = require("mongodb");
 const { isRateLimited, looksLikeBot } = require("./_spamProtection");

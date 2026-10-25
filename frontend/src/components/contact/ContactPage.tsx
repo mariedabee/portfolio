@@ -114,7 +114,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   return (
     <Box className={classes.root}>
       <div className="contact-container">
-        <Card style={{width:"60%"}}>
+        <Card className="contact-card">
           <CardContent>
             <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
               {t.contact.title}

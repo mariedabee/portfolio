@@ -19,8 +19,8 @@ The personal portfolio of **Mariam Bari**, a software developer from the Bremen 
 | Layer | Technologies |
 | --- | --- |
 | Frontend | React 18, TypeScript, Material UI, React Router, `@react-pdf/renderer` |
-| API | Vercel serverless function (Node.js), Nodemailer, optional MongoDB |
-| Hosting | Vercel |
+| API | Node.js / Express (`server.js`), Nodemailer, optional MongoDB |
+| Hosting | Railway |
 | Tooling | Create React App, Git, VS Code, Postman |
 
 ## Project structure
@@ -37,7 +37,7 @@ frontend/
     i18n/translations.ts   UI text (EN + DE)
     shared/                images (profile picture, gallery photos, logo)
     setupProxy.js          runs the API inside the local dev server
-  vercel.json              routing for Vercel
+  server.js                production server (site + API)
 ```
 
 ## Running locally
@@ -55,7 +55,7 @@ The contact form API runs inside the dev server, so there is no separate backend
 
 ### Settings
 
-`frontend/.env.local` (secrets, git-ignored; on Vercel: Project Settings → Environment Variables):
+`frontend/.env.local` (secrets, git-ignored; on Railway: service → Variables):
 
 | Variable | Purpose |
 | --- | --- |
@@ -70,12 +70,23 @@ The contact form API runs inside the dev server, so there is no separate backend
 | --- | --- |
 | `REACT_APP_SITE_URL` | public address of the site, used for link previews; set it to the live `https://` address |
 
-## Deploying to Vercel
+## Deployment (Railway)
 
-1. Import the GitHub repo on [vercel.com](https://vercel.com) and set **Root Directory** to `frontend`.
-2. Add the environment variables from `.env.local` (and `REACT_APP_SITE_URL` with the live address).
-3. Deploy. Every `git push` to `main` deploys automatically.
-4. Add a custom domain under Project Settings → Domains.
+Live at **https://mariedabee.up.railway.app**. Every `git push` to `main` deploys automatically.
+
+Service settings in the Railway dashboard:
+
+| Setting | Value |
+| --- | --- |
+| Root Directory | `/frontend` |
+| Build Command | `npm run build` |
+| Start Command | `node server.js` (serves the built site + `/api/submit-form`) |
+| Variables | `PORT=3000`, `REACT_APP_SITE_URL`, `EMAIL_USER`, `EMAIL_PASS`, `EMAIL_HOST`, `EMAIL_PORT` |
+| Networking | public domain on port `3000` |
+
+`REACT_APP_SITE_URL` is read at build time, so changing it triggers a rebuild.
+
+To run the production server locally: `npm run build && npm run serve`.
 
 ## Updating content
 

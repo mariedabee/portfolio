@@ -10,6 +10,8 @@
    negative z-index layers below (grid floor + particle canvas) */
 html {
   background: var(--void);
+  /* Nothing may make the page wider than the screen (phones would zoom out) */
+  overflow-x: hidden;
 }
 
 html,
@@ -28,6 +30,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh; /* mobile browsers: exclude the address bar */
   position: relative;
 }
 
