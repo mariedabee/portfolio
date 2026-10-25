@@ -88,6 +88,7 @@ const en = {
     success: 'Form submitted successfully',
     sending: 'Sending…',
     error: 'Your message could not be sent. Please try again later or email me directly.',
+    tooMany: "You've sent several messages already. Please try again in an hour.",
     close: 'Close',
   },
 };
@@ -182,6 +183,7 @@ const de: Translations = {
     success: 'Nachricht erfolgreich gesendet',
     sending: 'Wird gesendet…',
     error: 'Die Nachricht konnte nicht gesendet werden. Bitte später erneut versuchen oder direkt per E-Mail melden.',
+    tooMany: 'Es wurden bereits mehrere Nachrichten gesendet. Bitte in einer Stunde erneut versuchen.',
     close: 'Schließen',
   },
 };

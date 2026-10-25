@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Typography, Card, CardContent, Button, Box, TextField, Snackbar, Backdrop, Alert } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useStyles } from '../styles';
@@ -20,7 +20,10 @@ const ContactPage: React.FC = () => {
   const [senderEmailError, setsenderEmailError] = useState(false);
   const [messageError, setMessageError] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
-  const [submissionError, setSubmissionError] = useState(false);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
+  // Spam protection: hidden honeypot field + time when the form was opened
+  const [website, setWebsite] = useState('');
+  const formStartedAt = useRef(Date.now());
   const [sending, setSending] = useState(false);
 
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +67,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   }
 
   setSending(true);
-  setSubmissionError(false);
+  setSubmissionError(null);
   try {
     // Send form data to backend
     const response = await fetch(`${API_URL}/submit-form`, {
@@ -77,12 +80,15 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         lastName,
         senderEmail,
         message,
+        website,
+        formStartedAt: formStartedAt.current,
       }),
     });
 
     if (response.ok) {
       // Submission successful
       setSubmissionSuccess(true);
+      formStartedAt.current = Date.now();
       // Clear form fields after successful submission
       setFirstName('');
       setLastName('');
@@ -91,12 +97,12 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     } else {
       // Handle server error
       console.error('Server error:', response.statusText);
-      setSubmissionError(true);
+      setSubmissionError(response.status === 429 ? t.contact.tooMany : t.contact.error);
     }
   } catch (error) {
     // Handle network error
     console.error('Network error:', error);
-    setSubmissionError(true);
+    setSubmissionError(t.contact.error);
   } finally {
     setSending(false);
   }
@@ -163,7 +169,18 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
                 error={messageError}
                 helperText={messageError && t.contact.messageError}
               />
-              {submissionError && <Alert severity="error">{t.contact.error}</Alert>}
+              {/* Honeypot: invisible to people, bots fill it in */}
+              <input
+                type="text"
+                name="website"
+                className="honeypot"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+              />
+              {submissionError && <Alert severity="error">{submissionError}</Alert>}
               <Button variant="contained" color="primary" size="large" fullWidth type="submit" disabled={sending}>
                 {sending ? t.contact.sending : t.contact.submit}
               </Button>

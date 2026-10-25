@@ -1,5 +1,6 @@
 // formSubmitController.js
 const nodemailer = require("nodemailer");
+const { looksLikeBot } = require("./spamProtection");
 
 const EMAIL_PATTERN = /^\S+@\S+\.\S+$/;
 const MAX_LENGTH = { firstName: 100, lastName: 100, senderEmail: 200, message: 5000 };
@@ -32,6 +33,11 @@ const validate = (body) => {
 };
 
 async function submitForm(req, res) {
+  // Pretend success so bots don't learn they were caught
+  if (looksLikeBot(req.body)) {
+    return res.status(200).json({ message: "Form submitted successfully" });
+  }
+
   const errors = validate(req.body);
   if (errors.length) {
     return res.status(400).json({ message: "Invalid form data", errors });

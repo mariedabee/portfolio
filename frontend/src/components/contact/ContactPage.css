@@ -14,3 +14,12 @@
     flex-direction: column;
     gap: 16px;
 }
+
+/* Spam honeypot: kept off-screen instead of display:none, which some bots skip */
+.honeypot {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}

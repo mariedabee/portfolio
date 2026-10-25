@@ -2,21 +2,21 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const { submitForm } = require("./routes/formSubmitController");
-const { signup } = require("./routes/signupController");
+const { contactRateLimit } = require("./routes/spamProtection");
 // Import MongoDB connection middleware
 const { connectToMongoDB } = require("./mongoDB");
-const { login } = require("./routes/loginController");
-const { logout } = require("./routes/logoutController");
 
 const app = express();
+
+// Behind a hosting proxy, use the visitor's real IP for rate limiting
+app.set("trust proxy", 1);
 
 // Enable CORS for cross-origin resource sharing
 app.use(cors());
 
-// Parse JSON bodies of requests
-app.use(bodyParser.json());
+// Parse JSON bodies of requests (small limit: the contact form is the only input)
+app.use(express.json({ limit: "20kb" }));
 
 
 // Connect to MongoDB and start the server
@@ -29,15 +29,7 @@ connectToMongoDB()
     });
 
     // Endpoint to handle form submission
-    app.post("/submit-form", submitForm);
-
-    // Endpoint to handle user signup
-    app.post("/api/auth/signup", signup);
-
-    // Endpoint to handle user login
-    app.post("/api/auth/login", login);
-
-    app.post("/api/auth/logout", logout);
+    app.post("/submit-form", contactRateLimit, submitForm);
 
     // Start the server
     const PORT = process.env.PORT || 3001;

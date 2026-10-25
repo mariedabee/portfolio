@@ -10,7 +10,8 @@ The personal portfolio of **Mariam Bari**, a software developer from the Bremen 
 - **Interactive background:** a neon particle network that reacts to the mouse, over a scrolling retro grid
 - **English / German:** language switch in the navbar; defaults to the visitor's browser language and remembers their choice
 - **CV page with PDF download:** the CV is rendered on the site and generated as a clean A4 PDF in the selected language
-- **Contact form:** messages are stored in MongoDB and emailed via SMTP, with server-side validation
+- **Contact form:** messages are stored in MongoDB and emailed via SMTP, with server-side validation and spam protection (honeypot field, minimum fill time, 5 messages per visitor per hour)
+- **Link previews:** custom preview card when the site is shared on LinkedIn, WhatsApp, X, …
 - **Photo gallery:** tilted memory cards with a lightbox (arrow keys to browse)
 
 ## Tech stack
@@ -25,7 +26,7 @@ The personal portfolio of **Mariam Bari**, a software developer from the Bremen 
 
 ```
 frontend/
-  public/                  favicon, app icons, index.html
+  public/                  favicon, app icons, link preview image, index.html
   src/
     components/            pages and UI (home, about, cv, contact, navbar, background, …)
     data/cvData.ts         ALL CV content (EN + DE): jobs, education, skills, certificates, availability
@@ -33,7 +34,7 @@ frontend/
     shared/                images (profile picture, gallery photos, logo)
 backend/
   server.js                Express app
-  routes/                  contact form, signup, login, logout
+  routes/                  contact form + spam protection
   .env.example             template for local settings
 ```
 
@@ -69,7 +70,12 @@ npm install --legacy-peer-deps   # @mui/styles still declares a React 17 peer de
 npm start                        # runs on http://localhost:3000
 ```
 
-Set `REACT_APP_API_URL` if the backend runs somewhere other than `http://localhost:3001`.
+Settings live in `frontend/.env`:
+
+| Variable | Purpose |
+| --- | --- |
+| `REACT_APP_SITE_URL` | public address of the site, used for link previews; set it to the live `https://` address when deploying |
+| `REACT_APP_API_URL` | optional: backend address (defaults to `http://localhost:3001`) |
 
 ## Updating content
 
@@ -79,6 +85,7 @@ Set `REACT_APP_API_URL` if the backend runs somewhere other than `http://localho
 | Page text (home bio, hobbies, buttons, …) | `frontend/src/i18n/translations.ts` |
 | Gallery photos and captions | `frontend/src/shared/imagesAlbum/` + `frontend/src/components/about/imageData.js` |
 | Profile picture | `frontend/src/shared/profilePicture.jpg` |
+| Link preview image | `frontend/public/og-image.png` (1200×630) |
 
 The CV page and the PDF download both read from `cvData.ts`, so they always stay in sync.
 

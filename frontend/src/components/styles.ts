@@ -110,12 +110,6 @@ export const useStyles = makeStyles((theme: any) => ({
       filter: `drop-shadow(0 0 8px ${neon.green})`,
     },
   },
-  arrayImage: {
-    backgroundImage: `url('../shared/dataStructures/array.png')`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "contain",
-    backgroundPosition: "center",
-  },
   blogPost: {
     width: "75%", // Set width to 75%
     margin: "0 auto", // Center horizontally
