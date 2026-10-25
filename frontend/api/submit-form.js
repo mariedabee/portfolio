@@ -16,18 +16,52 @@ const getDb = () => {
   return mongoClientPromise.then((client) => client.db());
 };
 
-// Only create a transporter when SMTP credentials are configured
-const createTransporter = () => {
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) return null;
-  return nodemailer.createTransport({
-    host: process.env.EMAIL_HOST || "smtp.gmail.com",
-    port: Number(process.env.EMAIL_PORT) || 465,
-    secure: true,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+const EMAIL_TIMEOUT_MS = 10000;
+
+// Sends the notification email. Uses the Resend HTTP API when RESEND_API_KEY is set
+// (needed on hosts that block SMTP, like Railway), otherwise SMTP (e.g. Gmail locally).
+// Returns false when no email method is configured; throws when sending fails.
+const sendEmail = async ({ subject, text, replyTo }) => {
+  const to = process.env.EMAIL_TO || process.env.EMAIL_USER;
+
+  if (process.env.RESEND_API_KEY) {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: process.env.EMAIL_FROM || "Portfolio <onboarding@resend.dev>",
+        to: [to],
+        reply_to: replyTo,
+        subject,
+        text,
+      }),
+      signal: AbortSignal.timeout(EMAIL_TIMEOUT_MS),
+    });
+    if (!response.ok) throw new Error(`Resend responded ${response.status}: ${await response.text()}`);
+    return true;
+  }
+
+  if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST || "smtp.gmail.com",
+      port: Number(process.env.EMAIL_PORT) || 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+      connectionTimeout: EMAIL_TIMEOUT_MS,
+      greetingTimeout: EMAIL_TIMEOUT_MS,
+      socketTimeout: EMAIL_TIMEOUT_MS,
+    });
+    await transporter.sendMail({ from: process.env.EMAIL_USER, to, replyTo, subject, text });
+    return true;
+  }
+
+  return false;
 };
 
 const validate = (body) => {
@@ -86,24 +120,17 @@ module.exports = async function submitForm(req, res) {
   }
 
   // 2. Send the message by email
-  const transporter = createTransporter();
-  if (transporter) {
-    try {
-      // Strip line breaks so user input can't add email headers
-      const safeName = `${firstName} ${lastName}`.replace(/[\r\n]+/g, " ");
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_TO || process.env.EMAIL_USER,
-        replyTo: senderEmail,
-        subject: `Portfolio contact: ${safeName}`,
-        text: `From: ${safeName} <${senderEmail}>\n\n${message}`,
-      });
-      emailed = true;
-    } catch (error) {
-      console.error("Error sending email:", error.message);
-    }
-  } else {
-    console.warn("EMAIL_USER/EMAIL_PASS not set: no email sent");
+  try {
+    // Strip line breaks so user input can't add email headers
+    const safeName = `${firstName} ${lastName}`.replace(/[\r\n]+/g, " ");
+    emailed = await sendEmail({
+      subject: `Portfolio contact: ${safeName}`,
+      text: `From: ${safeName} <${senderEmail}>\n\n${message}`,
+      replyTo: senderEmail,
+    });
+    if (!emailed) console.warn("No email method configured (RESEND_API_KEY or EMAIL_USER/EMAIL_PASS)");
+  } catch (error) {
+    console.error("Error sending email:", error.message);
   }
 
   // Success as long as the message reached at least one place
