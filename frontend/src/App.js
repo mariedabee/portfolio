@@ -7,34 +7,36 @@ import ContactPage from "./components/contact/ContactPage";
 import { DataStructures } from "./components/dataStructures/DataStructures";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import GameBackground from "./components/background/GameBackground";
+import { LanguageProvider } from "./i18n/LanguageContext";
 import darkTheme from "./components/darkTheme";
-import BlogPage from "./components/blog/BlogPage";
-import NewPostPage from "./components/blog/NewPostPage";
-import PortfolioPage from "./components/portfolio/PortfolioPage";
+import CvPage from "./components/cv/CvPage";
 import Login from "./components/auth/Login"; 
 import Signup from "./components/auth/Signup"; 
 
 
 function App() {
   return (
+    <LanguageProvider>
     <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <GameBackground />
       <Router>
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/cv" element={<CvPage />} />
           <Route path="/dataStructures" element={<DataStructures />} />
-          <Route path="/blogPage" element={<BlogPage />} />
-          <Route path="/new-post" element={<NewPostPage />} />
-          <Route path="/editPost/:postId" element={<NewPostPage />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
         <Footer />
       </Router>
     </ThemeProvider>
+    </LanguageProvider>
   );
 }
 

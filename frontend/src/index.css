@@ -1,0 +1,120 @@
+/* Global game-style backdrop: black void + scrolling neon grid + scanlines */
+:root {
+  --neon: #39ff14;
+  --neon-dim: #1f8f0c;
+  --mint: #00ffa3;
+  --void: #030805;
+}
+
+/* Background lives on <html> only: a body background would paint over the
+   negative z-index layers below (grid floor + particle canvas) */
+html {
+  background: var(--void);
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  color: #e6ffe0;
+  font-family: 'Exo 2', sans-serif;
+}
+
+body {
+  background: transparent;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Perspective grid floor at the bottom of the screen */
+body::before {
+  content: "";
+  position: fixed;
+  left: -50%;
+  right: -50%;
+  bottom: -10%;
+  height: 60vh;
+  background-image:
+    linear-gradient(rgba(57, 255, 20, 0.35) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(57, 255, 20, 0.35) 2px, transparent 2px);
+  background-size: 60px 60px;
+  transform: perspective(300px) rotateX(60deg);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, black 10%, transparent 90%);
+  -webkit-mask-image: linear-gradient(to top, black 10%, transparent 90%);
+  animation: grid-scroll 3s linear infinite;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* CRT scanlines over everything */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.18) 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes grid-scroll {
+  from { background-position: 0 0; }
+  to { background-position: 0 60px; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { text-shadow: 0 0 6px var(--neon), 0 0 18px rgba(57, 255, 20, 0.6); }
+  50% { text-shadow: 0 0 2px var(--neon), 0 0 8px rgba(57, 255, 20, 0.3); }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+::selection {
+  background: var(--neon);
+  color: var(--void);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--neon-dim);
+  border: 3px solid var(--void);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon);
+}
+
+a {
+  color: var(--neon);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

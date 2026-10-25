@@ -5,10 +5,96 @@
     margin-bottom: 0px;
 }
 
+.playerSelect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.pixelLabel {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.75rem;
+    color: #39ff14;
+    animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+/* Floating avatar in a cartoon neon frame */
+.avatarFrame {
+    padding: 8px;
+    border: 4px solid #39ff14;
+    border-radius: 28px;
+    background: #030805;
+    box-shadow: 8px 8px 0 #1f8f0c, 0 0 40px rgba(57, 255, 20, 0.45);
+    animation: float 4s ease-in-out infinite;
+}
+
 .profileImage {
-    border-radius: 20%;
-    margin-right: 40px;
-    max-width: 400px;
+    border-radius: 20px;
+    max-width: 340px;
+    display: block;
+    filter: saturate(1.1) contrast(1.05);
+}
+
+.statPanel {
+    width: 100%;
+    max-width: 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.statRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.statLabel {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    color: #c8f5c0;
+    width: 80px;
+}
+
+.statBar {
+    flex: 1;
+    height: 12px;
+    border: 2px solid #39ff14;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+}
+
+.statFill {
+    height: 100%;
+    background: repeating-linear-gradient(90deg, #39ff14 0 10px, #1f8f0c 10px 12px);
+    box-shadow: 0 0 10px #39ff14;
+    transform-origin: left;
+    animation: stat-fill 1.2s ease-out both;
+}
+
+@keyframes stat-fill {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+
+.homeAvailability {
+    width: 100%;
+    max-width: 340px;
+    margin-top: 8px;
+}
+
+.pressStart {
+    text-align: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem;
+    color: #00ffa3;
+    margin: 0 0 16px;
+}
+
+.cursor {
+    animation: blink 1s steps(1) infinite;
 }
 
 .textWrapper {

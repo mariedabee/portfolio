@@ -3,8 +3,6 @@ const bcrypt = require("bcryptjs"); // For password hashing
 const { MongoClient } = require("mongodb");
 
 const uri = process.env.MONGODB_URI;
-console.log("MongoDB URI:", uri);
-console.log(process.env);
 
 
 async function signup(req, res) {

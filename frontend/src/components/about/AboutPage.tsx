@@ -1,109 +1,229 @@
 import React, { useState } from 'react';
-import { Box, Card, ImageList, ImageListItem, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import CodeIcon from '@mui/icons-material/Code';
+import MapIcon from '@mui/icons-material/Map';
+import SchoolIcon from '@mui/icons-material/School';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import PetsIcon from '@mui/icons-material/Pets';
+import ParkIcon from '@mui/icons-material/Park';
+import HeadphonesIcon from '@mui/icons-material/Headphones';
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import BrushIcon from '@mui/icons-material/Brush';
+import LightIcon from '@mui/icons-material/Light';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import PsychologyIcon from '@mui/icons-material/Psychology';
 import { useStyles } from '../styles';
 import ImageGallery from './ImageGallery';
 import imageData from './imageData';
+import { useCv } from '../../data/cvData';
+import { useLanguage } from '../../i18n/LanguageContext';
+import './AboutPage.css';
 
+type TabId = 'skills' | 'quests' | 'academy' | 'achievements' | 'hobbies' | 'next';
 
+const tabIcons: { id: TabId; icon: React.ReactNode }[] = [
+    { id: 'skills', icon: <CodeIcon /> },
+    { id: 'quests', icon: <MapIcon /> },
+    { id: 'academy', icon: <SchoolIcon /> },
+    { id: 'achievements', icon: <EmojiEventsIcon /> },
+    { id: 'hobbies', icon: <SportsEsportsIcon /> },
+    { id: 'next', icon: <RocketLaunchIcon /> },
+];
+
+// Same order as the translated hobby labels
+const hobbyIcons = [
+    <PetsIcon />,
+    <ParkIcon />,
+    <HeadphonesIcon />,
+    <DirectionsRunIcon />,
+    <BrushIcon />,
+    <LightIcon />,
+    <MenuBookIcon />,
+    <EditNoteIcon />,
+    <PsychologyIcon />,
+];
+
+const placeLine = (company: string, place: string) => [company, place].filter(Boolean).join(', ');
 
 const AboutPage: React.FC = () => {
     const classes = useStyles();
-    const [hoveredElement, setHoveredElement] = useState<string | null>(null);
+    const { lang, t } = useLanguage();
+    const cv = useCv();
+    const [activeTab, setActiveTab] = useState<TabId>('skills');
+    const galleryItems = imageData.map((item) => ({ ...item, caption: item.caption[lang] }));
 
     return (
-            <Box className={classes.root}>
-                <div>
-                    <Card 
-                    className={`${classes.card} ${classes.textCard}`} 
-                    onMouseEnter={() => setHoveredElement("skillsTitle")} 
-                    onMouseLeave={() => setHoveredElement(null)}
-                    >
-                    {/* Skills & Experiences */}
-                    <Typography
-                        id="skillsTitle"
-                        variant="h4"
-                        align="center"
-                        gutterBottom
-                        fontFamily={`${classes.vintageText} ${classes.hoverTitle}`}
-                    >
-                        Skills & Experiences
+        <Box className={classes.root}>
+            <div className="aboutWrapper">
+                <header className="aboutHeader">
+                    <span className="aboutKicker">{t.about.kicker}</span>
+                    <Typography variant="h4" component="h1" className="aboutTitle">
+                        {t.about.title}
                     </Typography>
-                    <Typography
-                        id="skillsText"
-                        variant="body1"
-                        align="left"
-                        paragraph
-                        fontFamily={classes.vintageText}
-                    >
-                        My journey has been pretty diverse, ranging from internships at a veterinary clinic to working with individuals with disabilities. 
-                        Each experience has taught me so much about empathy and compassion. 
-                        I've also dipped my toes into the worlds of marketing and IT, gaining valuable insights along the way.
-                        My current role in IT at Encoway has been eye-opening. 
-                        It's given me a real taste of what software development looks like in the real world. Sure, it's been challenging, but I'm all about pushing myself to grow and develop stronger connections with others.                    </Typography>
-                     <Typography
-                        id="skillsText"
-                        variant="body1"
-                        align="left"
-                        paragraph
-                        fontFamily={classes.vintageText}
-                    >
-                      - Proficient in Java, HTML, CSS, and beginner in React.
-                    </Typography>
-                     <Typography
-                        id="skillsText"
-                        variant="body1"
-                        align="left"
-                        paragraph
-                        fontFamily={classes.vintageText}
-                    >
-                    
-                        - Experienced in marketing and technicalities of advertisement placement.
-                    </Typography>
-                    <Typography
-                        id="skillsText"
-                        variant="body1"
-                        align="left"
-                        paragraph
-                        fontFamily={classes.vintageText}
-                    >
-                    
-                        - Previous work experience in IT at Encoway in Bremen, gaining insights into real-world development environments and sharpening programming skills.
-                    </Typography>
-                </Card>
+                    <div className="classBadge">
+                        <span className="classLabel">{t.about.classLabel}</span>
+                        <span className="classType">{cv.profile.personalityType}</span>
+                        <span className="className">{cv.profile.personalityName}</span>
+                    </div>
+                </header>
 
-                {/*  Hobbies & Interests  */}
-                <Card className={`${classes.card} ${classes.textCard}`}  
-                    onMouseEnter={() => setHoveredElement("hobbiesText")} 
-                    onMouseLeave={() => setHoveredElement(null)}
-                >
-                    <Typography variant="h4" align="center" gutterBottom fontFamily={`${classes.vintageText} ${classes.hoverTitle}`}>
-                        Hobbies & Interests
-                    </Typography>
-                    <Typography  id="hobbiesText" variant="body1" align="left" paragraph fontFamily={`${classes.vintageText} ${classes.hoverText}`}>
-                    When I'm not busy with work or studies, you'll probably find me hanging out with animals, exploring nature, or jamming out to some tunes. Being active and trying new things is what keeps me going!                    </Typography>
-                </Card>
+                <section className="profilePanel">
+                    <div className="tabBar" role="tablist" aria-label={t.about.title}>
+                        {tabIcons.map((tab) => (
+                            <button
+                                key={tab.id}
+                                role="tab"
+                                id={`tab-${tab.id}`}
+                                aria-selected={activeTab === tab.id}
+                                aria-controls={`panel-${tab.id}`}
+                                className={`tabButton ${activeTab === tab.id ? 'active' : ''}`}
+                                onClick={() => setActiveTab(tab.id)}
+                            >
+                                {tab.icon}
+                                <span>{t.about.tabs[tab.id]}</span>
+                            </button>
+                        ))}
+                    </div>
 
-                {/* Aspirations */}
-                <Card className={`${classes.card} ${classes.textCard}`}  
-                    onMouseEnter={() => setHoveredElement("aspirationsText")} 
-                    onMouseLeave={() => setHoveredElement(null)}
-                >
-                    <Typography variant="h4" align="center" gutterBottom fontFamily={`${classes.vintageText} ${classes.hoverTitle}`}>
-                        Aspirations
-                    </Typography>
-                    <Typography id="aspirationsText" variant="body1" align="left" paragraph fontFamily={`${classes.vintageText} ${classes.hoverText}`}>
-                        As I look ahead to the future, I'm excited about the possibilities that lie ahead. I'm eager to dive into my career as a software developer and continue learning and growing along the way. While my German skills are decent, I'm always looking for a supportive environment where I can ask questions and expand my knowledge every single day.
-                        Seeking a position as a software developer in a supportive environment where I can continue to learn and grow.
-                        Eager to travel and explore, and to eventually use my skills to do something helpful for humanity.
-                    </Typography>
-                </Card>
-                </div>
+                    <div
+                        key={activeTab}
+                        className="tabPanel"
+                        role="tabpanel"
+                        id={`panel-${activeTab}`}
+                        aria-labelledby={`tab-${activeTab}`}
+                    >
+                        {activeTab === 'skills' && (
+                            <>
+                                <p className="panelIntro">{cv.profile.summary}</p>
+                                <h3 className="panelHeading">{t.about.inventory}</h3>
+                                <div className="skillGrid">
+                                    {cv.skillGroups.map((group, i) => (
+                                        <div key={group.label} className="skillCard" style={{ animationDelay: `${i * 70}ms` }}>
+                                            <span className="skillRank">{group.label}</span>
+                                            <div className="itemChips">
+                                                {group.items.map((item) => (
+                                                    <span
+                                                        key={item}
+                                                        className={`itemChip ${cv.mainSkills.includes(item) ? 'main' : ''}`}
+                                                        title={cv.mainSkills.includes(item) ? t.about.usedProfessionally : undefined}
+                                                    >
+                                                        {item}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <h3 className="panelHeading">{t.about.languagesSpoken}</h3>
+                                <div className="languageGrid">
+                                    {cv.spokenLanguages.map((spoken) => (
+                                        <div key={spoken.name} className="languageRow">
+                                            <span className="skillName">{spoken.name}</span>
+                                            <div className="pips" aria-label={spoken.level}>
+                                                {[1, 2, 3, 4, 5].map((n) => (
+                                                    <span key={n} className={`pip ${n <= spoken.pips ? 'on' : ''}`} />
+                                                ))}
+                                            </div>
+                                            <span className="languageLevel">{spoken.level}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </>
+                        )}
 
-                <ImageGallery itemData={imageData}></ImageGallery>
-            </Box>
+                        {activeTab === 'quests' && (
+                            <ol className="questLog">
+                                {[...cv.experience, ...cv.internships].map((job, i) => (
+                                    <li
+                                        key={`${job.role}-${job.period}`}
+                                        className={`questItem ${job.dev ? 'main' : ''}`}
+                                        style={{ animationDelay: `${i * 70}ms` }}
+                                    >
+                                        <span className="questType">
+                                            {job.dev ? t.about.mainQuest : t.about.sideQuest} · {job.period}
+                                        </span>
+                                        <h3 className="questTitle">{job.role}</h3>
+                                        <span className="questPlace">{placeLine(job.company, job.place)}</span>
+                                        <ul className="questPoints">
+                                            {job.points.map((point) => (
+                                                <li key={point}>{point}</li>
+                                            ))}
+                                        </ul>
+                                    </li>
+                                ))}
+                            </ol>
+                        )}
+
+                        {activeTab === 'academy' && (
+                            <ol className="questLog">
+                                {cv.education.map((school, i) => (
+                                    <li key={school.degree} className="questItem main" style={{ animationDelay: `${i * 90}ms` }}>
+                                        <span className="questType">{school.period}</span>
+                                        <h3 className="questTitle">{school.degree}</h3>
+                                        <span className="questPlace">{school.school}</span>
+                                        {school.detail && <p>{school.detail}</p>}
+                                    </li>
+                                ))}
+                            </ol>
+                        )}
+
+                        {activeTab === 'achievements' && (
+                            <div className="trophyGrid">
+                                {cv.certificates.map((cert, i) => (
+                                    <div key={cert.title} className="trophyCard" style={{ animationDelay: `${i * 90}ms` }}>
+                                        <EmojiEventsIcon className="trophyIcon" />
+                                        <span className="questType">{t.about.achievementUnlocked}</span>
+                                        <h3 className="questTitle">{cert.title}</h3>
+                                        <span className="questPlace">
+                                            {cert.issuer} · {cert.date}
+                                        </span>
+                                        {cert.code && (
+                                            <span className="trophyCode">
+                                                {t.about.certificateCode} {cert.code}
+                                            </span>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {activeTab === 'hobbies' && (
+                            <>
+                                <div className="hobbyGrid">
+                                    {t.about.hobbies.map((label, i) => (
+                                        <div key={label} className="hobbyTile">
+                                            {hobbyIcons[i]}
+                                            <span>{label}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                <p className="panelIntro">{t.about.hobbiesText}</p>
+                            </>
+                        )}
+
+                        {activeTab === 'next' && (
+                            <>
+                                <p className="panelIntro">{t.about.nextText}</p>
+                                <ul className="objectives">
+                                    {t.about.objectives.map((objective) => (
+                                        <li key={objective}>{objective}</li>
+                                    ))}
+                                </ul>
+                            </>
+                        )}
+                    </div>
+                </section>
+
+                <section className="memorySection">
+                    <span className="aboutKicker">{t.about.memoryCards}</span>
+                    <ImageGallery itemData={galleryItems} />
+                </section>
+            </div>
+        </Box>
     );
 }
 
 export default AboutPage;
-
-//TODO: text appear / disappear state not working 

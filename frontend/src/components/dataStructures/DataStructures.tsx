@@ -14,7 +14,7 @@ export const DataStructures = () => {
             <Card className={`${classes.card} ${classes.textCard}`}  
                     onMouseEnter={() => setHoveredElement("dataStructuresText")} 
                     onMouseLeave={() => setHoveredElement(null)}
-                    style={{ backgroundColor: hoveredElement === "dataStructuresText" ? 'rgba(255, 255, 255, 0.4)' : 'rgba(255, 255, 255, 0.2)' }} 
+                    style={{ backgroundColor: hoveredElement === "dataStructuresText" ? 'rgba(10, 40, 14, 0.92)' : undefined }} 
                 >
             <div>
                 <ArraysComponent/>

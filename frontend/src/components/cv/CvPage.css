@@ -1,0 +1,155 @@
+/* CvPage.css — builds on the shared About page styles */
+.cvDownload.MuiButton-root {
+    margin-top: 22px;
+    padding: 12px 32px;
+    font-size: 1rem;
+}
+
+.cvSheet {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    background: rgba(6, 20, 10, 0.6);
+    border: 3px solid #39ff14;
+    border-radius: 22px;
+    box-shadow: 8px 8px 0 #1f8f0c, 0 0 36px rgba(57, 255, 20, 0.3);
+    backdrop-filter: blur(1px);
+    overflow: hidden;
+}
+
+.cvSidebar {
+    padding: 32px 24px;
+    background: rgba(0, 0, 0, 0.45);
+    border-right: 3px solid #39ff14;
+    display: flex;
+    flex-direction: column;
+}
+
+.avatarFrame.cvAvatar {
+    align-self: center;
+    border-radius: 50%;
+    padding: 6px;
+    margin-bottom: 18px;
+}
+
+.cvAvatar img {
+    display: block;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.cvName {
+    font-family: 'Bungee', sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: #39ff14;
+    text-align: center;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.6);
+}
+
+.cvHandle {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    color: #00ffa3;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.cvRole {
+    text-align: center;
+    font-weight: 600;
+    color: #c8f5c0;
+    margin: 6px 0 22px;
+}
+
+.cvContact {
+    list-style: none;
+    margin: 0 0 8px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.9rem;
+    word-break: break-word;
+}
+
+.cvContact li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cvContact .MuiSvgIcon-root {
+    color: #39ff14;
+    font-size: 1.2rem;
+}
+
+.cvContact a {
+    color: #e6ffe0;
+    text-decoration: none;
+}
+
+.cvContact a:hover {
+    color: #39ff14;
+}
+
+.cvSidebar .panelHeading {
+    margin-top: 28px;
+}
+
+.cvSkillGroup {
+    margin-bottom: 14px;
+}
+
+.cvSkillLabel {
+    display: block;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #8fbf88;
+    margin-bottom: 6px;
+}
+
+.cvLanguage {
+    margin-bottom: 12px;
+}
+
+.cvMain {
+    padding: 32px clamp(20px, 4vw, 44px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cvMain .panelHeading {
+    margin-top: 20px;
+}
+
+.cvMain section:first-child .panelHeading {
+    margin-top: 0;
+}
+
+.cvMain .panelIntro {
+    margin-bottom: 0;
+}
+
+.cvMain .trophyCard {
+    animation: none;
+}
+
+.cvProjectText {
+    margin: 0 0 12px;
+    line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+    .cvSheet {
+        grid-template-columns: 1fr;
+    }
+
+    .cvSidebar {
+        border-right: none;
+        border-bottom: 3px solid #39ff14;
+    }
+}

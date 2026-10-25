@@ -4,39 +4,58 @@ import { Typography, Button, Card, CardContent, Box, CardMedia } from '@mui/mate
 import { Link } from 'react-router-dom';
 import { useStyles } from '../styles';
 import profilePicture from '../../shared/profilePicture.jpg';
-import './HomePage.css'; 
+import { useLanguage } from '../../i18n/LanguageContext';
+import AvailabilityCard from '../availability/AvailabilityCard';
+import './HomePage.css';
+
+// Character stat values shown under the avatar (labels come from translations)
+const statValues = [95, 90, 75, 85];
 
 const HomePage: React.FC = () => {
   const classes = useStyles();
+  const { t } = useLanguage();
 
   return (
     <Box className={classes.root}>
-        <div>
-            <CardMedia
-              component="img"
-              src={profilePicture}
-              alt="Your Image Alt Text"
-              className="profileImage"
-            />
+        <div className="playerSelect">
+            <span className="pixelLabel">PLAYER SELECT</span>
+            <div className="avatarFrame">
+              <CardMedia
+                component="img"
+                src={profilePicture}
+                alt="Mariam Bari"
+                className="profileImage"
+              />
+            </div>
+            <div className="statPanel">
+              {t.home.stats.map((label, i) => (
+                <div key={label} className="statRow">
+                  <span className="statLabel">{label}</span>
+                  <div className="statBar">
+                    <div className="statFill" style={{ width: `${statValues[i]}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="homeAvailability">
+              <AvailabilityCard />
+            </div>
         </div>
       <Card className={classes.card}>
         <CardContent>
-          <div className="cardWrapper"> 
-            <div className="textWrapper"> 
+          <div className="cardWrapper">
+            <div className="textWrapper">
               <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
-                Welcome to My Portfolio
+                {t.home.title}
               </Typography>
+              <p className="pressStart">PRESS START<span className="cursor">_</span></p>
               <div className={classes.textWrapper}>
-                  <Typography variant="body1" paragraph className={classes.vintageText}>
-                  I'm a big lover of animals and nature. There's nothing quite like the soothing sound of the ocean or the gentle rustle of trees to make me feel at peace. I'm also quite active and love trying out new sports and activities whenever I can.
+                {t.home.bio.map((paragraph) => (
+                  <Typography key={paragraph.slice(0, 20)} variant="body1" paragraph className={classes.vintageText}>
+                    {paragraph}
                   </Typography>
-                  <Typography variant="body1" paragraph className={classes.vintageText}>
-                  Music has been my rock during tough times, offering me comfort and solace. It's something that's very close to my heart. When it comes to meeting new people, I can be a bit shy at first, but give me time, and I'll warm up to you!                
-                  </Typography>
-                  <Typography variant="body1" paragraph className={classes.vintageText}>
-                  During my studies, I embarked on a transformative semester abroad in the Netherlands, an experience that profoundly shaped my perspective. I've come to value structure and adherence to guidelines, as they enable me to effectively manage my diverse interests. Organization is key for me, as I harbor a keen fascination for a multitude of subjects and find myself drawn in many directions simultaneously.
-                  </Typography>
-                </div>
+                ))}
+              </div>
                 <Button
                   variant="contained"
                   color="primary"
@@ -44,9 +63,9 @@ const HomePage: React.FC = () => {
                   fullWidth
                   component={Link}
                   to="/about"
-                  className="learnMoreButton" 
+                  className="learnMoreButton"
                 >
-                  Learn More
+                  ▶ {t.home.learnMore}
                 </Button>
             </div>
           </div>

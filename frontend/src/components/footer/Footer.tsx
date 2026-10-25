@@ -10,16 +10,15 @@ const instagramLink = "https://instagram.com/marie.dabee";
 
 function Footer() {
   const classes = useStyles();
-  const backgroundColor = "linear-gradient(45deg, rgba(65,80,47,255), rgba(27,12,5,255), rgba(29, 32, 34, 1))"; // Define gradient background color
   const iconSize = '2.0rem';
 
   return (
-    <footer className={classes.footer} style={{ background: backgroundColor }}>
+    <footer className={classes.footer}>
       <Container maxWidth="lg">
         <IconButton className={classes.iconButtonGithub} aria-label="GitHub" href={githubLink}>
           <GitHubIcon style={{ fontSize: iconSize }} />
         </IconButton>
-        <IconButton className={classes.iconButtonGithub} aria-label="GitHub" href={instagramLink}>
+        <IconButton className={classes.iconButtonGithub} aria-label="Instagram" href={instagramLink}>
           <InstagramIcon style={{ fontSize: iconSize }} />
         </IconButton>
       </Container>

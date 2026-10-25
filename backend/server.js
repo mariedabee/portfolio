@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const postsRouter = require("./routes/postsRouter");
 const { submitForm } = require("./routes/formSubmitController");
 const { signup } = require("./routes/signupController");
 // Import MongoDB connection middleware
@@ -28,9 +27,6 @@ connectToMongoDB()
       req.dbClient = client;
       next();
     });
-
-    // Use routes
-    app.use("/api/posts", postsRouter); // Attach postsRouter for /api/posts routes
 
     // Endpoint to handle form submission
     app.post("/submit-form", submitForm);

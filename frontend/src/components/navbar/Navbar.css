@@ -1,9 +1,135 @@
-.logo {
-height: 50px;
-    max-width: 100%;
-    margin-right: 10px;
-    border-radius: 8px;
-}
 .toolbar {
-    background: #12372A;
+    gap: 4px;
+}
+
+.logoLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 16px;
+    text-decoration: none;
+}
+
+/* Hexagon logo: glows and spins a little on hover */
+.logo {
+    height: 46px;
+    width: 46px;
+    filter: drop-shadow(0 0 6px rgba(57, 255, 20, 0.7));
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.logoLink:hover .logo {
+    transform: rotate(60deg) scale(1.08);
+}
+
+.wordmark {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    color: #39ff14;
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.6);
+}
+
+@media (max-width: 1000px) {
+    .wordmark {
+        display: none;
+    }
+}
+
+.menuButton.MuiButton-root {
+    color: #c8f5c0;
+    position: relative;
+    padding-left: 22px;
+}
+
+.menuButton.MuiButton-root::before {
+    content: "▶";
+    position: absolute;
+    left: 6px;
+    font-size: 0.65rem;
+    color: #39ff14;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.menuButton.MuiButton-root:hover::before {
+    opacity: 1;
+}
+
+.menuButton.MuiButton-root.active {
+    color: #39ff14;
+    text-shadow: 0 0 8px #39ff14;
+}
+
+.menuButton.MuiButton-root.active::before {
+    opacity: 1;
+    animation: blink 1s steps(1) infinite;
+}
+
+.hudChip {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    color: #39ff14;
+    border: 2px solid rgba(57, 255, 20, 0.55);
+    border-radius: 8px;
+    padding: 6px 10px;
+    margin-right: 8px;
+    white-space: nowrap;
+}
+
+/* Pulsing "open to work" status, links to the CV */
+.hudChip.openToWork {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #00ffa3;
+    border-color: #00ffa3;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-shadow: 0 0 12px rgba(0, 255, 163, 0.35);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.hudChip.openToWork:hover {
+    background: #00ffa3;
+    color: #030805;
+}
+
+.hudDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: blink 1.2s steps(1) infinite;
+}
+
+.langSwitch {
+    display: inline-flex;
+    border: 2px solid #39ff14;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.langOption {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    padding: 8px 10px;
+    background: transparent;
+    color: #8fbf88;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.langOption:hover {
+    color: #39ff14;
+}
+
+.langOption.active {
+    background: #39ff14;
+    color: #030805;
+}
+
+.langOption:focus-visible {
+    outline: 2px solid #00ffa3;
+    outline-offset: -4px;
 }

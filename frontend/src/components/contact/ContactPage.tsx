@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { Typography, Card, CardContent, Button, Box, TextField, Snackbar, Backdrop } from '@mui/material';
+import { Typography, Card, CardContent, Button, Box, TextField, Snackbar, Backdrop, Alert } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useStyles } from '../styles';
+import { useLanguage } from '../../i18n/LanguageContext';
 import './ContactPage.css'; 
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 const ContactPage: React.FC = () => {
   const classes = useStyles();
+  const { t } = useLanguage();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -16,6 +20,8 @@ const ContactPage: React.FC = () => {
   const [senderEmailError, setsenderEmailError] = useState(false);
   const [messageError, setMessageError] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
+  const [submissionError, setSubmissionError] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
@@ -57,9 +63,11 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     return;
   }
 
+  setSending(true);
+  setSubmissionError(false);
   try {
     // Send form data to backend
-    const response = await fetch('http://localhost:3001/submit-form', {
+    const response = await fetch(`${API_URL}/submit-form`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -83,10 +91,14 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     } else {
       // Handle server error
       console.error('Server error:', response.statusText);
+      setSubmissionError(true);
     }
   } catch (error) {
     // Handle network error
     console.error('Network error:', error);
+    setSubmissionError(true);
+  } finally {
+    setSending(false);
   }
 };
 
@@ -101,11 +113,11 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         <Card style={{width:"60%"}}>
           <CardContent>
             <Typography variant="h4" align="center" gutterBottom className={classes.vintageText}>
-              Contact Me
+              {t.contact.title}
             </Typography>
             <form className="contact-form" onSubmit={handleSubmit}>
               <TextField
-                label="First Name"
+                label={t.contact.firstName}
                 variant="outlined"
                 name="firstName"
                 required
@@ -113,10 +125,10 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
                 value={firstName}
                 onChange={handleFirstNameChange}
                 error={firstNameError}
-                helperText={firstNameError && "First Name is required"}
+                helperText={firstNameError && t.contact.firstNameError}
               />
               <TextField
-                label="Last Name"
+                label={t.contact.lastName}
                 variant="outlined"
                 name="lastName"
                 required
@@ -124,10 +136,10 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
                 value={lastName}
                 onChange={handleLastNameChange}
                 error={lastNameError}
-                helperText={lastNameError && "Last Name is required"}
+                helperText={lastNameError && t.contact.lastNameError}
               />
               <TextField
-                label="Email"
+                label={t.contact.email}
                 variant="outlined"
                 name="email"
                 type="email"
@@ -136,10 +148,10 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
                 value={senderEmail}
                 onChange={handleEmailChange}
                 error={senderEmailError}
-                helperText={senderEmailError && "Invalid email format"}
+                helperText={senderEmailError && t.contact.emailError}
               />
               <TextField
-                label="Message"
+                label={t.contact.message}
                 variant="outlined"
                 name="message"
                 multiline
@@ -149,10 +161,11 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
                 value={message}
                 onChange={handleMessageChange}
                 error={messageError}
-                helperText={messageError && "Message is required"}
+                helperText={messageError && t.contact.messageError}
               />
-              <Button variant="contained" color="primary" size="large" fullWidth type="submit">
-                Submit
+              {submissionError && <Alert severity="error">{t.contact.error}</Alert>}
+              <Button variant="contained" color="primary" size="large" fullWidth type="submit" disabled={sending}>
+                {sending ? t.contact.sending : t.contact.submit}
               </Button>
             </form>
           </CardContent>
@@ -165,10 +178,10 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         open={submissionSuccess}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        message="Form submitted successfully"
+        message={t.contact.success}
         action={
             <Button color="inherit" size="small" onClick={handleSnackbarClose}>
-            Close
+            {t.contact.close}
             </Button>
         }
         sx={{ height: "100%" }}

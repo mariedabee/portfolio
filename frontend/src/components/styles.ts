@@ -1,36 +1,54 @@
 import { makeStyles } from "@mui/styles";
-import backgroundImage from "../shared/greenish.jpg";
-
-// Define custom font for vintage look
-const vintageFont = "'Old Standard TT', serif ";
+import { neon, fonts } from "./darkTheme";
 
 export const useStyles = makeStyles((theme: any) => ({
   root: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    minHeight: "100vh",
-    padding: theme.spacing(2),
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
+    flexWrap: "wrap",
+    gap: theme.spacing(4),
+    flex: 1,
+    minHeight: "calc(100vh - 140px)",
+    padding: theme.spacing(4, 2),
+    // Transparent so the global neon grid + particles show through
+    background:
+      "radial-gradient(ellipse at top, rgba(57, 255, 20, 0.12), transparent 60%)",
   },
   card: {
     width: "80%",
     maxWidth: "600px",
     padding: theme.spacing(4),
-    fontFamily: vintageFont,
-    transform: "scale(0.95)",
-    transition: "transform 0.3s ease",
+    position: "relative",
     "&:hover": {
-      transform: "scale(1)",
+      transform: "translate(-3px, -3px)",
+    },
+    // Little HUD corner tag on every panel
+    "&::before": {
+      content: '"◆ PLAYER 1"',
+      position: "absolute",
+      top: 10,
+      left: 14,
+      fontFamily: fonts.pixel,
+      fontSize: "0.5rem",
+      color: neon.green,
+      opacity: 0.7,
     },
   },
+  // Game level-select tile
   transparentWhiteBackground: {
-    backgroundColor: "rgba(255, 255, 255, 0.5)", // White with 50% opacity
-    color: "white", // Text color (optional)
+    backgroundColor: neon.panel,
+    border: `3px solid ${neon.green}`,
+    borderRadius: 16,
+    boxShadow: `5px 5px 0 ${neon.greenDim}`,
+    transition: "transform 0.2s ease, box-shadow 0.2s ease",
+    "& .MuiButton-root": {
+      padding: theme.spacing(3, 5),
+      fontSize: "1.1rem",
+    },
     "&:hover": {
-      backgroundColor: "rgba(255, 255, 255, 0.7)", // Adjust opacity on hover if needed
+      transform: "translate(-3px, -3px) rotate(-1deg)",
+      boxShadow: `8px 8px 0 ${neon.greenDim}, 0 0 30px rgba(57, 255, 20, 0.5)`,
     },
     margin: 4,
   },
@@ -45,9 +63,13 @@ export const useStyles = makeStyles((theme: any) => ({
     cursor: "pointer", // Change cursor to pointer on hover
     textDecoration: "underline", // Add underline effect on hover
   },
+  // Neon text (class name kept so existing pages pick it up)
   vintageText: {
-    fontFamily: vintageFont,
-    color: "#12372A",
+    color: "#e6ffe0",
+    "&.MuiTypography-h4": {
+      color: neon.green,
+      animation: "glow-pulse 3s ease-in-out infinite",
+    },
   },
   textCard: {
     marginRight: theme.spacing(2), // Adjust margin to create space between cards
@@ -74,11 +96,19 @@ export const useStyles = makeStyles((theme: any) => ({
     marginRight: theme.spacing(1),
   },
   footer: {
-    padding: theme.spacing(0.1),
+    padding: theme.spacing(1),
     marginTop: "auto",
+    background: "rgba(3, 8, 5, 0.9)",
+    borderTop: `2px solid ${neon.green}`,
+    boxShadow: "0 0 24px rgba(57, 255, 20, 0.3)",
   },
   iconButtonGithub: {
-    color: theme.palette.text.secondary,
+    color: neon.green,
+    transition: "transform 0.2s ease, filter 0.2s ease",
+    "&:hover": {
+      transform: "translateY(-4px) scale(1.1)",
+      filter: `drop-shadow(0 0 8px ${neon.green})`,
+    },
   },
   arrayImage: {
     backgroundImage: `url('../shared/dataStructures/array.png')`,
@@ -90,7 +120,7 @@ export const useStyles = makeStyles((theme: any) => ({
     width: "75%", // Set width to 75%
     margin: "0 auto", // Center horizontally
     textAlign: "center", // Center text
-    padding: theme.spacing(0.1),
-    marginBlock: theme.spacing(2),
+    padding: theme.spacing(2),
+    marginBlock: theme.spacing(3),
   },
 }));
